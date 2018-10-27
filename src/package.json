@@ -1,0 +1,21 @@
+{
+  "name": "voluntarios",
+  "version": "1.0.0",
+  "description": "Registo de Voluntários - Banco Alimentar de Setúbal",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rami Shashati",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.26.3",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^6.0.0",
+    "gulp-sass": "^4.0.2"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "> 1%"
+  ]
+}

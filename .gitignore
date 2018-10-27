@@ -1,0 +1,11 @@
+# Ignore
+dist
+tmp
+src/node_modules
+# Mac OS X and temp files
+*~
+.DS_Store
+._*
+.*
+# Allow
+!.gitignore
