@@ -2,15 +2,18 @@ const gulp = require('gulp');
       sass = require('gulp-sass');
       autoprefixer = require('gulp-autoprefixer');
       browserSync  = require('browser-sync').create();
+      sourcemaps = require('gulp-sourcemaps');
 
 const paths = {
     srcHTML: './*.html',
     srcSCSS: 'scss/bundle.scss',
     srcJS: 'scripts/*.js',
+    srcMaterialJS: 'material-kit-html-v2.0.4/assets/js/**/*',
   
     tmp: '../tmp',
     tmpCSS: '../tmp/styles/',
     tmpJS: '../tmp/scripts/',
+    tmpMaterialJS: '../tmp/scripts/js',
   
     dist: '../dist',
     distCSS: '../dist/styles/*.css',
@@ -18,7 +21,7 @@ const paths = {
 };
 
 // Dev Task
-gulp.task('dev', ['html-dev', 'sass-dev', 'js-dev', 'browser-sync'], function() {
+gulp.task('dev', ['html-dev', 'sass-dev', 'js-dev', 'materialkit-dev', 'browser-sync'], function() {
 });
 
 // 1 - Copy all HTML from src to tmp
@@ -35,11 +38,14 @@ gulp.task('html-dev-watch', ['html-dev'], function (done) {
 // 2 - Compile Sass to tmpCSS + Inject CSS into browser
 gulp.task('sass-dev', ['html-dev'], function() {
   return gulp.src(paths.srcSCSS)
-      .pipe(sass({
-          includePaths: ['./node_modules']
-        }))
-      .pipe(autoprefixer())
-      .pipe(gulp.dest(paths.tmpCSS));
+    .pipe(sourcemaps.init())
+    .pipe(sass({
+        includePaths: ['./node_modules']
+    }))
+    .pipe(sass().on('error', sass.logError))
+    .pipe(autoprefixer())
+    .pipe(sourcemaps.write("./"))
+    .pipe(gulp.dest(paths.tmpCSS));
 });
 
 // 2.1 Ensure 'sass-dev' is complete before reloading browser
@@ -59,8 +65,13 @@ gulp.task('js-dev-watch', ['js-dev'], function (done) {
     done();
 });
 
-// 4 - Static dev server
-gulp.task('browser-sync', ['js-dev'], function() {
+// 4 - Copy Material Kit JavaScript to tmp
+gulp.task('materialkit-dev', ['js-dev'], function() {
+    return gulp.src(paths.srcMaterialJS).pipe(gulp.dest(paths.tmpMaterialJS));
+});
+
+// 5 - Static dev server
+gulp.task('browser-sync', ['materialkit-dev'], function() {
     browserSync.init({
         server: {
             baseDir: paths.tmp, 
