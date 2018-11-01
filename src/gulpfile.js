@@ -9,11 +9,13 @@ const paths = {
     srcSCSS: 'scss/bundle.scss',
     srcJS: 'scripts/*.js',
     srcMaterialJS: 'material-kit-html-v2.0.4/assets/js/**/*',
+    srcMDLJS: 'mdl/material.min.js',
   
     tmp: '../tmp',
     tmpCSS: '../tmp/styles/',
     tmpJS: '../tmp/scripts/',
     tmpMaterialJS: '../tmp/scripts/js',
+    tmpMDLJS: '../tmp/scripts/',
   
     dist: '../dist',
     distCSS: '../dist/styles/*.css',
@@ -21,7 +23,7 @@ const paths = {
 };
 
 // Dev Task
-gulp.task('dev', ['html-dev', 'sass-dev', 'js-dev', 'materialkit-dev', 'browser-sync'], function() {
+gulp.task('dev', ['html-dev', 'sass-dev', 'js-dev', 'materialkit-dev', 'mdl-dev', 'browser-sync'], function() {
 });
 
 // 1 - Copy all HTML from src to tmp
@@ -70,7 +72,12 @@ gulp.task('materialkit-dev', ['js-dev'], function() {
     return gulp.src(paths.srcMaterialJS).pipe(gulp.dest(paths.tmpMaterialJS));
 });
 
-// 5 - Static dev server
+// 5 - Copy Material Design Lite to tmp
+gulp.task('mdl-dev', ['materialkit-dev'], function() {
+    return gulp.src(paths.srcMDLJS).pipe(gulp.dest(paths.tmpMDLJS));
+});
+
+// 6 - Static dev server
 gulp.task('browser-sync', ['materialkit-dev'], function() {
     browserSync.init({
         server: {
