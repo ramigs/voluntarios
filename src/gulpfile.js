@@ -3,7 +3,7 @@ const gulp = require('gulp');
       autoprefixer = require('gulp-autoprefixer');
       browserSync  = require('browser-sync').create();
       sourcemaps = require('gulp-sourcemaps');
-      inject = require('gulp-inject');
+      useref = require('gulp-useref');
 
 const paths = {
     // src - source files: pre-processed Sass, JavaScript un-minified
@@ -15,7 +15,7 @@ const paths = {
   
     // tmp - dev files: Sass compiled, JavaScript copied
     tmp: '../tmp',
-    tmpHTML: './*.html',
+    tmpHTML: '../tmp/*.html',
     tmpCSS: '../tmp/styles/',
     tmpJS: '../tmp/scripts/',
     tmpMaterialJS: '../tmp/scripts/material-kit/js',
@@ -97,23 +97,45 @@ gulp.task('browser-sync', ['mdl-dev'], function() {
     
 });
 
-// Build Task ADD dev as dependency??
-// 'js-build'
-gulp.task('build', ['html-build', 'css-build'], function() {
+// Build Task
+gulp.task('build', ['js-build', 'css-build', 'html-build', 'browser-sync-prod-test'], function() {
 });
 
 // 1 - Javascript
+const datetimepickerPath = 'material-kit/js/plugins/bootstrap-datetimepicker.js';
 
-// 1 - Copy all HTML from tmp to dist
-gulp.task('html-build', function() {
-    return gulp.src(paths.tmpHTML)
-        .pipe(inject(js, {relative: true}))
-        .pipe(gulp.dest(paths.dist));
+gulp.task('js-build', function() {
+        return gulp.src(paths.tmpJS + datetimepickerPath)
+            .pipe(gulp.dest(paths.distJS + 'material-kit/js/plugins'));
+        // bundle gulp-concat
+        // source
+        // rename .min
+        // minify and uglify
+        // 
 });
 
 // 2 - Copy all CSS from tmp to dist
-gulp.task('css-build', ['html-build'],  function() {
-    return gulp.src(paths.tmpCSS + '*.css').pipe(gulp.dest(paths.distCSS));
+gulp.task('css-build', ['js-build'], function() {
+    return gulp.src(paths.tmpCSS + '*.css')
+        .pipe(gulp.dest(paths.distCSS));
+});
+
+// 3 - Copy all HTML from tmp to dist
+gulp.task('html-build', ['css-build'], function() {
+    return gulp.src(paths.tmpHTML)
+        .pipe(useref())
+        .pipe(gulp.dest(paths.dist));
+});
+
+// 4 - Static server
+gulp.task('browser-sync-prod-test', ['html-build'], function() {
+    browserSync.init({
+        server: {
+            baseDir: paths.dist, 
+        },
+        browser: "google chrome"
+    });
+    
 });
 
 // Default Task
