@@ -144,7 +144,7 @@ gulp.task('html-clean', ['html-build'], function() {
 });
 
 // 5 - Static server
-gulp.task('browser-sync-prod-test', ['html-build'], function() {
+gulp.task('browser-sync-prod-test', ['html-clean'], function() {
     browserSync.init({
         server: {
             baseDir: paths.dist, 

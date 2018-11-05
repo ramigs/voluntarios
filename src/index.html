@@ -49,21 +49,23 @@
 
     <main class="main">
         <div class="info">
-            <br>
             <h2>Novo Voluntário</h2>
             <h4>#F_REGVOL</h4>
-            <form>
+            <form id="novo-voluntario-form" action="#" method="post">
+                <!-- Primeiro Nome -->
                 <div class="form-group bmd-form-group has-danger">
                     <label class="bmd-label-floating">Primeiro Nome*</label>
-                    <input type="text" class="form-control" required>
+                    <input type="text" class="form-control" name="nome">
                     <span class="material-icons form-control-feedback">clear</span>
                     <small class="form-text text-muted">Campo de preenchimento obrigatório</small>
                 </div>
+                <!-- Apelido -->
                 <div class="form-group bmd-form-group">
                     <label class="bmd-label-floating">Apelido*</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" name="apelido">
                 </div>
                 <br>
+                <!-- Tipo de Contato -->
                 <div class="form-group">
                     <label for="exampleFormControlSelect1">Tipo de Contato</label>
                     <select class="form-control selectpicker" data-style="btn btn-link" id="exampleFormControlSelect1">
@@ -72,24 +74,28 @@
                         <option>Peditório</option>
                     </select>
                 </div>
+                <!-- Email1 -->
                 <div class="form-group bmd-form-group">
                     <label class="bmd-label-floating" for="exampleInputEmail1">Email*</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email1">
                     <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
                 </div>
+                <!-- Email2 -->
                 <div class="form-group bmd-form-group">
                     <label class="bmd-label-floating" for="exampleInputEmail2">Email Secundário</label>
-                    <input type="email" class="form-control" id="exampleInputEmail2" aria-describedby="emailHelp2">
+                    <input type="email" class="form-control" id="exampleInputEmail2" aria-describedby="emailHelp2" name="email2">
                     <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
                 </div>
+                <!-- Contato Telefónico -->
                 <div class="form-group bmd-form-group">
                     <label class="bmd-label-floating">Contato Telefónico*</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" name="tlf">
                 </div>
                 <br>
+                <!-- Género -->
                 <div class="form-check form-check-radio form-check-inline">
                     <label class="form-check-label">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="M"
+                        <input class="form-check-input" type="radio" name="genero" id="inlineRadio1" value="M"
                             checked="checked">
                         M
                         <span class="circle">
@@ -99,7 +105,7 @@
                 </div>
                 <div class="form-check form-check-radio form-check-inline">
                     <label class="form-check-label">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="F">
+                        <input class="form-check-input" type="radio" name="genero" id="inlineRadio2" value="F">
                         F
                         <span class="circle">
                             <span class="check"></span>
@@ -107,39 +113,44 @@
                     </label>
                 </div>
                 <br>
+                <!-- NIF -->
                 <div class="form-group bmd-form-group">
                     <label class="bmd-label-floating">NIF*</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" name="nif">
                 </div>
                 <br>
+                <!-- Data de Nascimento -->
                 <div class="form-group">
                     <label class="label-control">Data de Nascimento*</label>
-                    <input type="text" class="form-control datetimepicker" />
+                    <input type="text" class="form-control datetimepicker"/>
                 </div>
+                <!-- Localidade -->
                 <div class="form-group bmd-form-group">
                     <label class="bmd-label-floating">Localidade*</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" name="localidade">
                 </div>
+                <!-- Código Postal -->
                 <div class="form-group bmd-form-group">
                     <label class="bmd-label-floating">Código Postal*</label>
-                    <input type="text" class="form-control">
-                    <small id="emailHelp" class="form-text text-muted">Formato: 0000-000</small>
+                    <input type="text" class="form-control" name="codigo-postal">
                 </div>
                 <br>
+                <!-- Consentimento contato fins promocionais -->
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" value="">
-                        Aceita ser contatado para fins promocionais
+                        <input class="form-check-input" type="checkbox" value="" name="consente-promocoes">
+                        Aceito ser contatado para fins promocionais
                         <span class="form-check-sign">
                             <span class="check"></span>
                         </span>
                     </label>
                 </div>
                 <br>
+                <!-- Consentimento contato avisos campanhas -->
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" value="">
-                        Aceita ser contatado para avisos sobre campanhas e peditórios
+                        <input class="form-check-input" type="checkbox" value="" name="consente-campanhas">
+                        Aceito ser contatado para avisos sobre campanhas e peditórios
                         <span class="form-check-sign">
                             <span class="check"></span>
                         </span>
@@ -151,7 +162,7 @@
         </div>
     </main>
     <!-- build:js scripts/main.js -->
-    <script src="scripts/app.js"></script>
+    <script src="scripts/form.js"></script>
     <!-- Core Material Kit JS Files -->
     <script src="scripts/material-kit/js/core/jquery.min.js" type="text/javascript"></script>
     <script src="scripts/material-kit/js/core/popper.min.js" type="text/javascript"></script>
