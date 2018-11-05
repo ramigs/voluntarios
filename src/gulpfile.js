@@ -4,6 +4,10 @@ const gulp = require('gulp');
       browserSync  = require('browser-sync').create();
       sourcemaps = require('gulp-sourcemaps');
       useref = require('gulp-useref');
+      htmlclean = require('gulp-htmlclean');
+      del = require('del');
+      removeCode = require('gulp-remove-code');
+      inject = require('gulp-inject');
 
 const paths = {
     // src - source files: pre-processed Sass, JavaScript un-minified
@@ -98,24 +102,26 @@ gulp.task('browser-sync', ['mdl-dev'], function() {
 });
 
 // Build Task
-gulp.task('build', ['js-build', 'css-build', 'html-build', 'browser-sync-prod-test'], function() {
+gulp.task('build', 
+    ['css-build', 'html-build', 
+    'html-clean', 'browser-sync-prod-test'], function() {
 });
 
-// 1 - Javascript
-const datetimepickerPath = 'material-kit/js/plugins/bootstrap-datetimepicker.js';
+// 1 - JavaScript: because of this file's strange behavior NO NEED ANYMORE
+//const datetimepickerPath = 'material-kit/js/plugins/bootstrap-datetimepicker.js';
 
-gulp.task('js-build', function() {
-        return gulp.src(paths.tmpJS + datetimepickerPath)
-            .pipe(gulp.dest(paths.distJS + 'material-kit/js/plugins'));
+/* gulp.task('js-build', function() {
+        return gulp.src(paths.tmpJS)
+            .pipe(gulp.dest(paths.distJS));
         // bundle gulp-concat
         // source
         // rename .min
         // minify and uglify
         // 
 });
-
+ */
 // 2 - Copy all CSS from tmp to dist
-gulp.task('css-build', ['js-build'], function() {
+gulp.task('css-build', function() {
     return gulp.src(paths.tmpCSS + '*.css')
         .pipe(gulp.dest(paths.distCSS));
 });
@@ -127,7 +133,17 @@ gulp.task('html-build', ['css-build'], function() {
         .pipe(gulp.dest(paths.dist));
 });
 
-// 4 - Static server
+// 4 - Clean HTML
+gulp.task('html-clean', ['html-build'], function() {
+    const js = gulp.src(paths.distJS + 'main.js');
+    return gulp.src(paths.dist + '/*.html')
+        .pipe(removeCode({ production: true }))
+        .pipe(inject( js, { relative:true } ))
+        .pipe(htmlclean())
+        .pipe(gulp.dest(paths.dist));
+});
+
+// 5 - Static server
 gulp.task('browser-sync-prod-test', ['html-build'], function() {
     browserSync.init({
         server: {
@@ -137,6 +153,11 @@ gulp.task('browser-sync-prod-test', ['html-build'], function() {
     });
     
 });
+
+// Clean Task
+gulp.task('clean', function () {
+    del([paths.tmp, paths.dist], {force: true});
+  });
 
 // Default Task
 gulp.task('default', function() {
