@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', function (evt) {
             hideFormTextMessages();
 
             // Collect all data
-
             let nome = form['nome'].value;
             let apelido = form['apelido'].value;
             let email1 = form['email1'].value;
@@ -25,24 +24,57 @@ document.addEventListener('DOMContentLoaded', function (evt) {
             let codigoPostal = form['codigo-postal'].value;
             let consentePromocoes = form['consente-promocoes'].checked;
             //let consenteCampanhas = form['consente-campanhas'].checked;
+            
+            // Validate
+            let isFormDataValid = true;
 
-            if (nome == "") {
-                alert(consentePromocoes);
-                evt.preventDefault();
+            // Must only contain letters and whitespace
+            if (!nome) {
+                // First thing: div needs to have 'has-danger' class
+                form.querySelector('[data-error="invalid-nome-group"]').classList.add('has-danger');
+
+                // Now we can affect the display of both the icon and the small text.
+                // This means setting the display to its default value.
+                form.querySelector('[data-error="invalid-nome-icon"]').style.display = 'inline-block';
+                form.querySelector('[data-error="invalid-nome-text"]').style.display = 'block';
+
+                isFormDataValid = false;
             }
 
-            // Validate
+            if (!apelido) {
+                
+                form.querySelector('[data-error="invalid-apelido-group"]').classList.add('has-danger');
+                form.querySelector('[data-error="invalid-apelido-icon"]').style.display = 'inline-block';
+                form.querySelector('[data-error="invalid-apelido-text"]').style.display = 'block';
 
-            let isFormDataValid = false;
+                isFormDataValid = false;
+            }
 
-            // 1. Mandatory fields
-            // 2. Input validation
+            if (!email1) {
+                
+                form.querySelector('[data-error="invalid-email1-group"]').classList.add('has-danger');
+                form.querySelector('[data-error="invalid-email1-icon"]').style.display = 'inline-block';
+                form.querySelector('[data-error="invalid-email1-text"]').style.display = 'block';
 
-            // Styles
+                isFormDataValid = false;
+
+            } else if (!validateEmail(email1)) {
+                
+                form.querySelector('[data-error="invalid-email1-group"]').classList.add('has-danger');
+                form.querySelector('[data-error="invalid-email1-icon"]').style.display = 'inline-block';
+                form.querySelector('[data-error="invalid-email1-text"]').style.display = 'block';
+                form.querySelector('[data-error="invalid-email1-text"]').innerHTML= 'Endereço de email inválido'
+                
+                isFormDataValid = false;
+            }
+
+            
 
             if (!isFormDataValid) {
                 evt.preventDefault();
             }
+
+
 
         })
     }
@@ -51,6 +83,7 @@ document.addEventListener('DOMContentLoaded', function (evt) {
 
 // Remove class 'has-danger' from every 'form-group' div
 function removeHasDangerClass() {
+    // Should it be refactored to query the form instead of the document?
     document.querySelectorAll('.form-group').forEach(field => {
         field.classList.remove('has-danger');
     });
@@ -68,4 +101,9 @@ function hideFormTextMessages() {
     document.querySelectorAll('.form-text').forEach(field => {
         field.style.display = "none";
     });
+}
+
+function validateEmail(email) {
+    let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
 }

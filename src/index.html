@@ -46,23 +46,38 @@
 
         </nav>
     </header>
-
     <main class="main">
         <div class="info">
+            <!-- Alerta Sucesso -->
+            <div class="alert alert-success">
+                <div class="container-fluid">
+                    <div class="alert-icon">
+                        <i class="material-icons">check</i>
+                    </div>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true"><i class="material-icons">clear</i></span>
+                    </button>
+                    <b>Registo Completo:</b> Yuhuuu!
+                </div>
+            </div>
             <h2>Novo Voluntário</h2>
-            <h4>#F_REGVOL</h4>
+            <h5>#F_REGVOL</h5>
             <form id="novo-voluntario-form" action="#" method="post">
                 <!-- Primeiro Nome -->
-                <div class="form-group bmd-form-group has-danger">
+                <div class="form-group bmd-form-group" data-error="invalid-nome-group">
                     <label class="bmd-label-floating">Primeiro Nome*</label>
-                    <input type="text" class="form-control" name="nome">
-                    <span class="material-icons form-control-feedback">clear</span>
-                    <small class="form-text text-muted">Campo de preenchimento obrigatório</small>
+                    <input type="text" class="form-control" name="nome" maxlength="32">
+                    <span class="material-icons form-control-feedback" data-error="invalid-nome-icon">clear</span>
+                    <small class="form-text text-muted" data-error="invalid-nome-text">Campo de preenchimento
+                        obrigatório</small>
                 </div>
                 <!-- Apelido -->
-                <div class="form-group bmd-form-group">
+                <div class="form-group bmd-form-group" data-error="invalid-apelido-group">
                     <label class="bmd-label-floating">Apelido*</label>
-                    <input type="text" class="form-control" name="apelido">
+                    <input type="text" class="form-control" name="apelido" maxlength="64">
+                    <span class="material-icons form-control-feedback" data-error="invalid-apelido-icon">clear</span>
+                    <small class="form-text text-muted" data-error="invalid-apelido-text">Campo de preenchimento
+                        obrigatório</small>
                 </div>
                 <br>
                 <!-- Tipo de Contato -->
@@ -75,28 +90,31 @@
                     </select>
                 </div>
                 <!-- Email1 -->
-                <div class="form-group bmd-form-group">
+                <div class="form-group bmd-form-group" data-error="invalid-email1-group">
                     <label class="bmd-label-floating" for="exampleInputEmail1">Email*</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email1">
-                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email1"
+                        maxlength="254">
+                    <span class="material-icons form-control-feedback" data-error="invalid-email1-icon">clear</span>
+                    <small id="emailHelp" class="form-text text-muted" data-error="invalid-email1-text">We'll never
+                        share your email with anyone else.</small>
                 </div>
                 <!-- Email2 -->
                 <div class="form-group bmd-form-group">
                     <label class="bmd-label-floating" for="exampleInputEmail2">Email Secundário</label>
-                    <input type="email" class="form-control" id="exampleInputEmail2" aria-describedby="emailHelp2" name="email2">
+                    <input type="email" class="form-control" id="exampleInputEmail2" aria-describedby="emailHelp2" name="email2"
+                        maxlength="254">
                     <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
                 </div>
                 <!-- Contato Telefónico -->
                 <div class="form-group bmd-form-group">
                     <label class="bmd-label-floating">Contato Telefónico*</label>
-                    <input type="text" class="form-control" name="tlf">
+                    <input type="text" class="form-control" name="tlf" maxlength="16">
                 </div>
                 <br>
                 <!-- Género -->
                 <div class="form-check form-check-radio form-check-inline">
                     <label class="form-check-label">
-                        <input class="form-check-input" type="radio" name="genero" id="inlineRadio1" value="M"
-                            checked="checked">
+                        <input class="form-check-input" type="radio" name="genero" id="inlineRadio1" value="M" checked="checked">
                         M
                         <span class="circle">
                             <span class="check"></span>
@@ -116,13 +134,13 @@
                 <!-- NIF -->
                 <div class="form-group bmd-form-group">
                     <label class="bmd-label-floating">NIF*</label>
-                    <input type="text" class="form-control" name="nif">
+                    <input type="text" class="form-control" name="nif" maxlength="9">
                 </div>
                 <br>
                 <!-- Data de Nascimento -->
                 <div class="form-group">
                     <label class="label-control">Data de Nascimento*</label>
-                    <input type="text" class="form-control datetimepicker"/>
+                    <input type="text" class="form-control datetimepicker" maxlength="10">
                 </div>
                 <!-- Localidade -->
                 <div class="form-group bmd-form-group">
