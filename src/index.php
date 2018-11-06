@@ -24,7 +24,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="voluntarios.html">Listar</a>
+                            <a class="nav-link" href="voluntarios.php">Listar</a>
                         </li>
                         <li class="nav-item active">
                             <a class="nav-link" href="#">Registar</a>
@@ -62,7 +62,7 @@
             </div>
             <h2>Novo Voluntário</h2>
             <h5>#F_REGVOL</h5>
-            <form id="novo-voluntario-form" action="#" method="post">
+            <form id="novo-voluntario-form" action="hello.php" method="post">
                 <!-- Primeiro Nome -->
                 <div class="form-group bmd-form-group" data-error="invalid-nome-group">
                     <label class="bmd-label-floating">Primeiro Nome*</label>

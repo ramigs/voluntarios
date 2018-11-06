@@ -27,7 +27,7 @@
                             <a class="nav-link" href="#">Listar</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="index.html">Registar</a>
+                            <a class="nav-link" href="index.php">Registar</a>
                         </li>
                     </ul>
                 </div>

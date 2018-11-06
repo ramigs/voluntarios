@@ -11,7 +11,7 @@ const gulp = require('gulp');
 
 const paths = {
     // src - source files: pre-processed Sass, JavaScript un-minified
-    srcHTML: './*.html',
+    srcPHP: './*.php',
     srcSCSS: 'scss/bundle.scss',
     srcJS: 'scripts/*.js',
     srcMaterialJS: 'material-kit-html-v2.0.4/assets/js/**/*',
@@ -19,7 +19,7 @@ const paths = {
   
     // tmp - dev files: Sass compiled, JavaScript copied
     tmp: '../tmp',
-    tmpHTML: '../tmp/*.html',
+    tmpPHP: '../tmp/*.php',
     tmpCSS: '../tmp/styles/',
     tmpJS: '../tmp/scripts/',
     tmpMaterialJS: '../tmp/scripts/material-kit/js',
@@ -32,22 +32,22 @@ const paths = {
 };
 
 // Dev Task
-gulp.task('dev', ['html-dev', 'sass-dev', 'js-dev', 'materialkit-dev', 'mdl-dev', 'browser-sync'], function() {
+gulp.task('dev', ['php-dev', 'sass-dev', 'js-dev', 'materialkit-dev', 'mdl-dev', 'browser-sync'], function() {
 });
 
-// 1 - Copy all HTML from src to tmp
-gulp.task('html-dev', function() {
-  return gulp.src(paths.srcHTML).pipe(gulp.dest(paths.tmp));
-});
-
-// 1.1 Ensure 'html-dev' is complete before reloading browser
-gulp.task('html-dev-watch', ['html-dev'], function (done) {
+// 1 - Copy all PHP from src to tmp
+gulp.task('php-dev', function() {
+    return gulp.src(paths.srcPHP).pipe(gulp.dest(paths.tmp));
+  });
+  
+// 1.1 Ensure 'php-dev' is complete before reloading browser
+gulp.task('php-dev-watch', ['php-dev'], function (done) {
     browserSync.reload();
     done();
 });
 
 // 2 - Compile Sass to tmpCSS
-gulp.task('sass-dev', ['html-dev'], function() {
+gulp.task('sass-dev', ['php-dev'], function() {
   return gulp.src(paths.srcSCSS)
     .pipe(sourcemaps.init())
     .pipe(sass({
@@ -89,13 +89,16 @@ gulp.task('mdl-dev', ['materialkit-dev'], function() {
 // 6 - Static dev server
 gulp.task('browser-sync', ['mdl-dev'], function() {
     browserSync.init({
-        server: {
+        // Default Browsersync server
+        /* server: {
             baseDir: paths.tmp, 
-        },
+        }, */
+        // MAMP
+        proxy: "http://localhost:8888/voluntarios/tmp/",
         browser: "google chrome"
     });
 
-    gulp.watch(paths.srcHTML, ['html-dev-watch']);
+    gulp.watch(paths.srcPHP, ['php-dev-watch']);
     gulp.watch("scss/*.scss", ['sass-dev-watch']);
     gulp.watch(paths.srcJS, ['js-dev-watch']);
     
@@ -103,12 +106,9 @@ gulp.task('browser-sync', ['mdl-dev'], function() {
 
 // Build Task
 gulp.task('build', 
-    ['css-build', 'html-build', 
-    'html-clean', 'browser-sync-prod-test'], function() {
+    ['css-build', 'php-build', 
+    'php-clean', 'browser-sync-prod-test'], function() {
 });
-
-// 1 - JavaScript: because of this file's strange behavior NO NEED ANYMORE
-//const datetimepickerPath = 'material-kit/js/plugins/bootstrap-datetimepicker.js';
 
 /* gulp.task('js-build', function() {
         return gulp.src(paths.tmpJS)
@@ -120,35 +120,38 @@ gulp.task('build',
         // 
 });
  */
-// 2 - Copy all CSS from tmp to dist
+// 1 - Copy all CSS from tmp to dist
 gulp.task('css-build', function() {
     return gulp.src(paths.tmpCSS + '*.css')
         .pipe(gulp.dest(paths.distCSS));
 });
 
-// 3 - Copy all HTML from tmp to dist
-gulp.task('html-build', ['css-build'], function() {
-    return gulp.src(paths.tmpHTML)
+// 2 - Copy all PHP from tmp to dist, build 'main.js'
+gulp.task('php-build', ['css-build'], function() {
+    return gulp.src(paths.tmpPHP)
         .pipe(useref())
         .pipe(gulp.dest(paths.dist));
 });
 
-// 4 - Clean HTML
-gulp.task('html-clean', ['html-build'], function() {
+// 3 - Clean PHP
+gulp.task('php-clean', ['php-build'], function() {
     const js = gulp.src(paths.distJS + 'main.js');
-    return gulp.src(paths.dist + '/*.html')
+    return gulp.src(paths.dist + '/*.php')
         .pipe(removeCode({ production: true }))
         .pipe(inject( js, { relative:true } ))
         .pipe(htmlclean())
         .pipe(gulp.dest(paths.dist));
 });
 
-// 5 - Static server
-gulp.task('browser-sync-prod-test', ['html-clean'], function() {
+// 4 - Static server
+gulp.task('browser-sync-prod-test', ['php-clean'], function() {
     browserSync.init({
-        server: {
+        // Default Browsersync server
+        /* server: {
             baseDir: paths.dist, 
-        },
+        }, */
+        // MAMP
+        proxy: "http://localhost:8888/voluntarios/dist/",
         browser: "google chrome"
     });
     

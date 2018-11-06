@@ -68,11 +68,9 @@ document.addEventListener('DOMContentLoaded', function (evt) {
                 isFormDataValid = false;
             }
 
-            
-
-            if (!isFormDataValid) {
+            /* if (!isFormDataValid) {
                 evt.preventDefault();
-            }
+            } */
 
 
 
