@@ -177,6 +177,7 @@ document.addEventListener('DOMContentLoaded', function (evt) {
             }
             
             if (!isFormDataValid) {
+                alert(dataNascimento);
                 evt.preventDefault();
             }
 
@@ -215,15 +216,9 @@ function validateName(n) {
 
 }
 
-function validateDate(date) {
-    let d = moment(date, 'D/M/YYYY');
-    if (d == null || !d.isValid()) return false;
-
-    return date.indexOf(d.format('D/M/YYYY')) >= 0
-        || date.indexOf(d.format('DD/MM/YYYY')) >= 0
-        || date.indexOf(d.format('D/M/YY')) >= 0
-        || date.indexOf(d.format('DD/MM/YY')) >= 0;
-}
+function validateDate(dateString) {
+    return (Date.parse(dateString) == NaN ? false : true);
+  }
 
 function validateEmail(email) {
     let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

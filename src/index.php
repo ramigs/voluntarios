@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
 
+    <!-- CSS Files -->
     <link rel="stylesheet" href="styles/bundle.css">
 
     <title>Banco Alimentar Setúbal - Registo de Voluntários</title>
@@ -61,8 +62,7 @@
                 </div>
             </div>
             <h2>Novo Voluntário</h2>
-            <h5>#F_REGVOL</h5>
-            <form id="novo-voluntario-form" action="form_handler.php" method="post">
+            <form class="contact-form" id="novo-voluntario-form" action="form_handler.php" method="post">
                 <!-- Primeiro Nome -->
                 <div class="form-group bmd-form-group" data-error="invalid-nome-group">
                     <label class="bmd-label-floating">Primeiro Nome*</label>
@@ -222,7 +222,7 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script type="text/javascript">
         $('.datetimepicker').datetimepicker({
-            format: 'D/M/Y',
+            format: 'YYYY/MM/DD',
             icons: {
                 time: "fa fa-clock-o",
                 date: "fa fa-calendar",

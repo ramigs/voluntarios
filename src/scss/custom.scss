@@ -1,9 +1,3 @@
-/* * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-} */
-
 // Table container for listing Voluntários
 .voluntarios-content {
     //max-width: 50%;
@@ -24,4 +18,10 @@
     .form-text {
         display: none;
     }
+}
+
+// Bordered Info
+.info {
+    border: solid #f7f7f9;
+    border-width: .2rem;
 }

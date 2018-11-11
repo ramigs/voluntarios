@@ -11,7 +11,7 @@ const gulp = require('gulp');
 
 const paths = {
     // src - source files: pre-processed Sass, JavaScript un-minified
-    srcPHP: './*.php',
+    srcPHP: './**/*.php',
     srcSCSS: 'scss/bundle.scss',
     srcJS: 'scripts/*.js',
     srcMaterialJS: 'material-kit-html-v2.0.4/assets/js/**/*',
@@ -19,7 +19,7 @@ const paths = {
   
     // tmp - dev files: Sass compiled, JavaScript copied
     tmp: '../tmp',
-    tmpPHP: '../tmp/*.php',
+    tmpPHP: '../tmp/**/*.php',
     tmpCSS: '../tmp/styles/',
     tmpJS: '../tmp/scripts/',
     tmpMaterialJS: '../tmp/scripts/material-kit/js',
