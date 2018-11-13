@@ -94,7 +94,7 @@ gulp.task('browser-sync', ['mdl-dev'], function() {
             baseDir: paths.tmp, 
         }, */
         // MAMP
-        proxy: "http://localhost:8888/voluntarios/tmp/",
+        proxy: "http://localhost:8888/voluntarios/tmp/landing-page.php",
         browser: "google chrome"
     });
 

@@ -62,7 +62,7 @@
                 </div>
             </div>
             <h2>Novo Voluntário</h2>
-            <form class="contact-form" id="novo-voluntario-form" action="form_handler.php" method="post">
+            <form class="contact-form" action="form_handler.php" method="post">
                 <!-- Primeiro Nome -->
                 <div class="form-group bmd-form-group" data-error="invalid-nome-group">
                     <label class="bmd-label-floating">Primeiro Nome*</label>

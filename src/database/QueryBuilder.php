@@ -11,9 +11,8 @@ class QueryBuilder
 
     public function selectAll($table, $intoClass)
     {
-        $stmt = $this->pdo->query("SELECT * FROM {$table}");
-        //$stmt->execute();
-
+        $stmt = $this->pdo->prepare("SELECT * FROM {$table}");
+        $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_CLASS, $intoClass);
     }
 

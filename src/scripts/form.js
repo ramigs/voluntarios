@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function (evt) {
             let email1            = form['email1'].value;
             let email2            = form['email2'].value;
             let tlf               = form['tlf'].value;
-            let genero            = form['genero'].value;
+            //let genero            = form['genero'].value;
             let nif               = form['nif'].value;
             let localidade        = form['localidade'].value;
             let codigoPostal      = form['codigo-postal'].value;
@@ -171,13 +171,12 @@ document.addEventListener('DOMContentLoaded', function (evt) {
 
                 form.querySelector('[data-error="invalid-cp-group"]').classList.add('has-danger');
                 form.querySelector('[data-error="invalid-cp-icon"]').style.display = 'inline-block';
-                //form.querySelector('[data-error="invalid-cp-text"]').style.display = 'block';
                 form.querySelector('[data-error="invalid-cp-text"]').innerHTML = 
                     'Código Postal inválido';
             }
             
             if (!isFormDataValid) {
-                alert(dataNascimento);
+                //alert(dataNascimento);
                 evt.preventDefault();
             }
 
