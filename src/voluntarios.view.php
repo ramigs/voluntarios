@@ -60,9 +60,9 @@
                     <b>Registo Completo:</b> Yuhuuu!
                 </div>
             </div>
-            <h3>Voluntários Registados</h3>
+            <h3 class="text-center">Voluntários Registados</h3>
             <?= displayTableVoluntarios($voluntarios, $tiposRegisto); ?>
-            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+            <!-- <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
                 <thead>
                     <tr>
                         <th class="mdl-data-table__cell--non-numeric">Nome</th>
@@ -137,7 +137,7 @@
                         <td class="mdl-data-table__cell--non-numeric">Importação</td>
                     </tr>
                 </tbody>
-            </table>
+            </table> -->
         </div>
     </main>
     <!--removeIf(production)-->

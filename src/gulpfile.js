@@ -16,6 +16,7 @@ const paths = {
     srcJS: 'scripts/*.js',
     srcMaterialJS: 'material-kit-html-v2.0.4/assets/js/**/*',
     srcMDLJS: 'mdl/material.min.js',
+    srcFPDF: 'fpdf181/',
   
     // tmp - dev files: Sass compiled, JavaScript copied
     tmp: '../tmp',
@@ -24,6 +25,7 @@ const paths = {
     tmpJS: '../tmp/scripts/',
     tmpMaterialJS: '../tmp/scripts/material-kit/js',
     tmpMDLJS: '../tmp/scripts/',
+    tmpFPDF: '../tmp',
 
     // dist - production files: processed, minified
     dist: '../dist',
@@ -32,7 +34,7 @@ const paths = {
 };
 
 // Dev Task
-gulp.task('dev', ['php-dev', 'sass-dev', 'js-dev', 'materialkit-dev', 'mdl-dev', 'browser-sync'], function() {
+gulp.task('dev', ['php-dev', 'sass-dev', 'js-dev', 'materialkit-dev', 'mdl-dev', 'fpdf-dev', 'browser-sync'], function() {
 });
 
 // 1 - Copy all PHP from src to tmp
@@ -86,8 +88,13 @@ gulp.task('mdl-dev', ['materialkit-dev'], function() {
     return gulp.src(paths.srcMDLJS).pipe(gulp.dest(paths.tmpMDLJS));
 });
 
-// 6 - Static dev server
-gulp.task('browser-sync', ['mdl-dev'], function() {
+// 6 - Copy FPDF library to tmp
+gulp.task('fpdf-dev', ['mdl-dev'], function() {
+    return gulp.src(paths.srcFPDF).pipe(gulp.dest(paths.tmpFPDF));
+});
+
+// 7 - Static dev server
+gulp.task('browser-sync', ['fpdf-dev'], function() {
     browserSync.init({
         // Default Browsersync server
         /* server: {
@@ -143,8 +150,14 @@ gulp.task('php-clean', ['php-build'], function() {
         .pipe(gulp.dest(paths.dist));
 });
 
-// 4 - Static server
-gulp.task('browser-sync-prod-test', ['php-clean'], function() {
+// 4 - Copy FPDF library from tmp to dist
+gulp.task('fpdf-build', ['php-clean'], function() {
+    return gulp.src(paths.tmpFPDF + 'fpdf181/').pipe(gulp.dest(paths.dist));
+});
+
+
+// 5 - Static server
+gulp.task('browser-sync-prod-test', ['fpdf-build'], function() {
     browserSync.init({
         // Default Browsersync server
         /* server: {

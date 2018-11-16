@@ -16,12 +16,17 @@ $pdo = Connection::make();
 $query = new QueryBuilder($pdo);
 $voluntarios = $query->selectAll('voluntario', 'Voluntario');
 
+usort($voluntarios, function($a, $b)
+{
+    return strcmp($a->nome, $b->nome);
+});
+
 $tiposRegisto = $query->selectAll('tipo_registo', 'TipoRegisto');
 
 function displayTableVoluntarios($voluntarios, $tiposRegisto)
 {
     $voluntariosHTML = '<table class="table">' .
-        '<thead>' .
+        '<thead class="table-dark">' .
         '<tr>' .
         '<th>Nome</th>' .
         '<th class="text-right">Idade</th>' .
@@ -32,21 +37,19 @@ function displayTableVoluntarios($voluntarios, $tiposRegisto)
         '</tr>' .
         '</thead>';
 
-    $buttonsHTML = '<button type="button" rel="tooltip" title="Ver" class="btn btn-info btn-simple btn-xs">
-                        <i class="fa fa-user"></i>
-                    </button>' .
-                    '<button type="button" rel="tooltip" title="Editar" class="btn btn-success btn-simple btn-xs">
-                        <i class="fa fa-edit"></i>
-                    </button>' .
-                    '<button type="button" rel="tooltip" title="Apagar" class="btn btn-danger btn-simple btn-xs">
-                        <i class="fa fa-times"></i>
-                    </button>';
-
     if (count($voluntarios) > 0) {
 
         $voluntariosHTML .= '<tbody>';
 
         foreach ($voluntarios as $voluntario) {
+
+            $buttonsHTML = '<form action="participacoes.php" method="post">' .
+                '<input type="hidden" name="voluntarioId" value="' . $voluntario->id . '">' .
+                '<button type="submit" rel="tooltip" title="Ver Participações" class="btn btn-info btn-simple btn-xs">
+                    <i class="fa fa-user"></i>
+                </button>' .
+                '</form>';
+
             $voluntariosHTML .= '<tr>';
             $voluntariosHTML .= '<td>' . $voluntario->nome . ' ' . $voluntario->apelido . '</td>';
             $voluntariosHTML .= '<td class="text-right">' . calculateAgeFromDateOfBirth($voluntario->data_nascimento) . '</td>';
@@ -73,8 +76,7 @@ function calculateAgeFromDateOfBirth($dateOfBirth)
 
 function decodeTipoRegisto($tiposRegisto, $tipoRegisto)
 {
-    foreach ($tiposRegisto as $tr)
-    {
+    foreach ($tiposRegisto as $tr) {
         if ($tr->codigo_registo == $tipoRegisto)
             return $tr->descricao_registo;
     }

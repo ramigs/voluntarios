@@ -3,7 +3,7 @@
 class Voluntario
 {
 
-    public $id;
+    /* public $id;
     public $nome;
     public $apelido;
     public $data_nascimento;
@@ -19,7 +19,7 @@ class Voluntario
     public $consente_campanhas;
     public $tipo_registo;
     public $data_registo;
-    public $tipo_remocao;
+    public $tipo_remocao; */
 
 /*     public function __construct()
     {

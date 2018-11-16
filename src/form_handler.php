@@ -83,6 +83,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute();
         $stmt = null;
 
+        $pdo = null;
+
     } catch (PDOException $e) {
         die($e->getMessage());
     }

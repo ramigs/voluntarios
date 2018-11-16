@@ -44,7 +44,6 @@
                     </li>
                 </ul>
             </div>
-
         </nav>
     </header>
     <main class="main">
