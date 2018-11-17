@@ -26,10 +26,10 @@ class Voluntario
         
     } */
 
-    public function info()
+    /* public function info()
     {
         return '#'.$this->id.': '.$this->nome.' '.$this->apelido;
-    }
+    } */
 
 }
 

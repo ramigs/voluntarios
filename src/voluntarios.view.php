@@ -24,10 +24,10 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">Listar</a>
+                            <a class="nav-link" href="voluntarios.php">Listar</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="landing-page.php">Registar</a>
+                            <a class="nav-link" href="registar.php">Registar</a>
                         </li>
                     </ul>
                 </div>
@@ -48,6 +48,7 @@
 
     <main class="main">
         <div class="voluntarios-content">
+            <?php if (isset($newVoluntarioId)) : ?>
             <!-- Alerta Sucesso -->
             <div class="alert alert-success">
                 <div class="container-fluid">
@@ -57,9 +58,10 @@
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true"><i class="material-icons">clear</i></span>
                     </button>
-                    <b>Registo Completo:</b> Yuhuuu!
+                    <b>Registo Completo:</b> Voluntário inserido com sucesso!
                 </div>
             </div>
+            <?php endif; ?>
             <h3 class="text-center">Voluntários Registados</h3>
             <?= displayTableVoluntarios($voluntarios, $tiposRegisto); ?>
             <!-- <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">

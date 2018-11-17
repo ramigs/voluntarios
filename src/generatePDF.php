@@ -13,12 +13,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pdf = new FPDF();
     $pdf->AddPage();
     $pdf->SetFont('Arial', 'B', 16);
-    $pdf->Cell(40, 10, $cleanPost['voluntarioNome']);
-    $pdf->Cell(40, 10, $cleanPost['voluntarioApelido']);
+    $pdf->Cell(40, 10, utf8_decode($cleanPost['voluntarioNome']));
+    $pdf->Cell(40, 10, utf8_decode($cleanPost['voluntarioApelido']));
     //$pdf->Cell(40, 10, $cleanPost['voluntarioNIF']);
-    $pdf->Cell(40, 10, $cleanPost['acaoNome']);
-    $pdf->Cell(40, 10, $cleanPost['acaoLocal']);
-    $pdf->Cell(40, 10, $cleanPost['acaoData']);
+    //$pdf->Cell(40, 10, utf8_decode($cleanPost['acaoNome']));
+    //$pdf->Cell(40, 10, utf8_decode($cleanPost['acaoLocal']));
+    //$pdf->Cell(40, 10, $cleanPost['acaoData']);
     $pdf->Output('F', $filename);
 
     echo ($filename);

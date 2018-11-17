@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 // Error reporting for DEV purposes
 // Comment before PROD
 ini_set('display_errors', 1);
@@ -80,6 +82,17 @@ function decodeTipoRegisto($tiposRegisto, $tipoRegisto)
         if ($tr->codigo_registo == $tipoRegisto)
             return $tr->descricao_registo;
     }
+}
+
+if(isset($_SESSION['idnewvol']) && !empty($_SESSION['idnewvol'])) {
+
+    $newVoluntarioId = $_SESSION['idnewvol'];
+    $newVoluntarioNome = $_SESSION['nomenewvol'];
+    $newVoluntarioApelido = $_SESSION['apelidonewvol'];
+    
+    unset($_SESSION['idnewvol']);
+    unset($_SESSION['nomenewvol']);
+    unset($_SESSION['apelidonewvol']);
 }
 
 require 'voluntarios.view.php';

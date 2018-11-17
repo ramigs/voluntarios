@@ -28,8 +28,8 @@ document.addEventListener('DOMContentLoaded', function (evt) {
                     },
                     url: 'generatePDF.php',
                     success: function (resp) {
-                        alert(resp);
-                        var dlink = document.createElement("a");
+                        //alert(resp);
+                        let dlink = document.createElement("a");
 
                         dlink.href = resp;
 
@@ -40,6 +40,11 @@ document.addEventListener('DOMContentLoaded', function (evt) {
                 });
             });
         });
+
+        $('[data-toggle="tooltip"]').click(function () {
+            $('[data-toggle="tooltip"]').tooltip("hide");
+  
+         });
     }
 
 });

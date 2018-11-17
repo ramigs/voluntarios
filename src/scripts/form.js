@@ -8,9 +8,15 @@ document.addEventListener('DOMContentLoaded', function (evt) {
         form['codigo-postal'].addEventListener('focus', function() {
             form.querySelector('small[name="cp-small-text"]').innerHTML = 'Formato: 0000-000';
         });
+        // Reset Data de Nascimento small text when the input field gets focus
+        form['data-nascimento'].addEventListener('focus', function() {
+            form.querySelector('small[name="dt-small-text"]').innerHTML = 'AAAA/MM/DD';
+        });
+
 
         // Set visibility for small text elements that are informative
-        form.querySelector('[data-error="invalid-cp-text"]').style.display = 'block';
+        form.querySelector('small[name="cp-small-text"]').style.display = 'block';
+        form.querySelector('small[name="dt-small-text"]').style.display = 'block';
 
         form.addEventListener('submit', (evt) => {
 
@@ -22,6 +28,9 @@ document.addEventListener('DOMContentLoaded', function (evt) {
             form.querySelector('[data-error="invalid-cp-text"]').style.display = 'block';
             form.querySelector('[data-error="invalid-cp-text"]').innerHTML = 'Formato: 0000-000'
 
+            form.querySelector('[data-error="invalid-dt-text"]').style.display = 'block';
+            form.querySelector('[data-error="invalid-dt-text"]').innerHTML = 'AAAA/MM/DD'
+
             // Collect all data
             let nome              = form['nome'].value;
             let apelido           = form['apelido'].value;
@@ -30,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function (evt) {
             let email1            = form['email1'].value;
             let email2            = form['email2'].value;
             let tlf               = form['tlf'].value;
-            //let genero            = form['genero'].value;
+            let genero            = form['genero'].value;
             let nif               = form['nif'].value;
             let localidade        = form['localidade'].value;
             let codigoPostal      = form['codigo-postal'].value;
@@ -216,7 +225,7 @@ function validateName(n) {
 }
 
 function validateDate(dateString) {
-    return (Date.parse(dateString) == NaN ? false : true);
+    return moment(dateString, 'YYYY/MM/DD', true).isValid();
   }
 
 function validateEmail(email) {

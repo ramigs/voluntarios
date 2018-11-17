@@ -27,7 +27,7 @@
                             <a class="nav-link" href="voluntarios.php">Listar</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="landing-page.php">Registar</a>
+                            <a class="nav-link" href="registar.php">Registar</a>
                         </li>
                     </ul>
                 </div>
@@ -71,7 +71,7 @@
                             <input type="hidden" name="acaoNome" value="<?= htmlspecialchars($row['nome']); ?>">
                             <input type="hidden" name="acaoLocal" value="<?= htmlspecialchars($row['local']); ?>">
                             <input type="hidden" name="acaoData" value="<?= htmlspecialchars($row['data']); ?>">
-                            <button type="button" name="btnPDF" rel="tooltip" title="" class="btn btn-danger btn-simple btn-xs" data-original-title="Gerar Declaração">
+                            <button type="button" name="btnPDF" data-toggle="tooltip" class="btn btn-danger btn-simple btn-xs" title="Gerar Declaração">
                                 <i class="material-icons">save_alt</i>
                             </button>
                         </td>

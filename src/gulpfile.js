@@ -101,7 +101,7 @@ gulp.task('browser-sync', ['fpdf-dev'], function() {
             baseDir: paths.tmp, 
         }, */
         // MAMP
-        proxy: "http://localhost:8888/voluntarios/tmp/landing-page.php",
+        proxy: "http://localhost:8888/voluntarios/tmp/voluntarios.php",
         browser: "google chrome"
     });
 
