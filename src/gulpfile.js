@@ -12,29 +12,30 @@ const gulp = require('gulp');
 const paths = {
     // src - source files: pre-processed Sass, JavaScript un-minified
     srcPHP: './**/*.php',
+    srcPHPResources: 'resources/*.php',
     srcSCSS: 'scss/bundle.scss',
-    srcJS: 'scripts/*.js',
-    srcMaterialJS: 'material-kit-html-v2.0.4/assets/js/**/*',
-    srcMDLJS: 'mdl/material.min.js',
-    srcFPDF: 'fpdf181/',
+    srcJS: 'public/scripts/*.js',
+    srcMaterialJS: 'resources/libs/material-kit-html-v2.0.4/assets/js/**/*',
+    srcMDLJS: 'resources/libs/mdl/material.min.js',
+    srcFPDF: 'resources/libs/fpdf181/',
   
     // tmp - dev files: Sass compiled, JavaScript copied
     tmp: '../tmp',
     tmpPHP: '../tmp/**/*.php',
-    tmpCSS: '../tmp/styles/',
-    tmpJS: '../tmp/scripts/',
-    tmpMaterialJS: '../tmp/scripts/material-kit/js',
-    tmpMDLJS: '../tmp/scripts/',
-    tmpFPDF: '../tmp',
+    tmpCSS: '../tmp/public/styles/',
+    tmpJS: '../tmp/public/scripts/',
+    tmpMaterialJS: '../tmp/public/scripts/material-kit/js',
+    tmpMDLJS: '../tmp/public/scripts/',
+    tmpFPDF: '../tmp/resources/libs/',
 
     // dist - production files: processed, minified
-    dist: '../dist',
-    distCSS: '../dist/styles/',
-    distJS: '../dist/scripts/'
+    dist: '../dist/',
+    distCSS: '../dist/public/styles/',
+    distJS: '../dist/public/scripts/'
 };
 
 // Dev Task
-gulp.task('dev', ['php-dev', 'sass-dev', 'js-dev', 'materialkit-dev', 'mdl-dev', 'fpdf-dev', 'browser-sync'], function() {
+gulp.task('dev', ['php-dev', 'sass-dev', 'js-dev', 'materialkit-dev', 'mdl-dev', 'browser-sync'], function() {
 });
 
 // 1 - Copy all PHP from src to tmp
@@ -88,20 +89,15 @@ gulp.task('mdl-dev', ['materialkit-dev'], function() {
     return gulp.src(paths.srcMDLJS).pipe(gulp.dest(paths.tmpMDLJS));
 });
 
-// 6 - Copy FPDF library to tmp
-gulp.task('fpdf-dev', ['mdl-dev'], function() {
-    return gulp.src(paths.srcFPDF).pipe(gulp.dest(paths.tmpFPDF));
-});
-
-// 7 - Static dev server
-gulp.task('browser-sync', ['fpdf-dev'], function() {
+// 6 - Static dev server
+gulp.task('browser-sync', ['mdl-dev'], function() {
     browserSync.init({
         // Default Browsersync server
         /* server: {
             baseDir: paths.tmp, 
         }, */
         // MAMP
-        proxy: "http://localhost:8888/voluntarios/tmp/voluntarios.php",
+        proxy: "http://localhost:8888/voluntarios/tmp/public/voluntarios.php",
         browser: "google chrome"
     });
 
@@ -113,8 +109,7 @@ gulp.task('browser-sync', ['fpdf-dev'], function() {
 
 // Build Task
 gulp.task('build', 
-    ['css-build', 'php-build', 
-    'php-clean', 'browser-sync-prod-test'], function() {
+    ['php-build', 'css-build', 'php-clean', 'browser-sync-prod-test'], function() {
 });
 
 /* gulp.task('js-build', function() {
@@ -127,44 +122,42 @@ gulp.task('build',
         // 
 });
  */
-// 1 - Copy all CSS from tmp to dist
-gulp.task('css-build', function() {
-    return gulp.src(paths.tmpCSS + '*.css')
-        .pipe(gulp.dest(paths.distCSS));
-});
 
-// 2 - Copy all PHP from tmp to dist, build 'main.js'
-gulp.task('php-build', ['css-build'], function() {
+// 1 - Copy all PHP from tmp to dist, build 'main.js'
+gulp.task('php-build', function() {
     return gulp.src(paths.tmpPHP)
         .pipe(useref())
         .pipe(gulp.dest(paths.dist));
 });
 
+// 2 - Copy all CSS from tmp to dist
+gulp.task('css-build', ['php-build'], function() {
+    return gulp.src(paths.tmpCSS + '*.css')
+        .pipe(gulp.dest(paths.distCSS));
+});
+
 // 3 - Clean PHP
-gulp.task('php-clean', ['php-build'], function() {
+gulp.task('php-clean', ['css-build'], function() {
     const js = gulp.src(paths.distJS + 'main.js');
-    return gulp.src(paths.dist + '/*.php')
-        .pipe(removeCode({ production: true }))
+    return gulp.src(paths.dist + 'public/*.view.php')
+        .pipe(removeCode({
+            production: true, 
+            commentStart: "<!--", 
+            commentEnd: "-->"}))
         .pipe(inject( js, { relative:true } ))
         .pipe(htmlclean())
-        .pipe(gulp.dest(paths.dist));
+        .pipe(gulp.dest(paths.dist + 'public/'));
 });
 
-// 4 - Copy FPDF library from tmp to dist
-gulp.task('fpdf-build', ['php-clean'], function() {
-    return gulp.src(paths.tmpFPDF + 'fpdf181/').pipe(gulp.dest(paths.dist));
-});
-
-
-// 5 - Static server
-gulp.task('browser-sync-prod-test', ['fpdf-build'], function() {
+// 4 - Static server
+gulp.task('browser-sync-prod-test', ['php-clean'], function() {
     browserSync.init({
         // Default Browsersync server
         /* server: {
             baseDir: paths.dist, 
         }, */
         // MAMP
-        proxy: "http://localhost:8888/voluntarios/dist/voluntarios.php",
+        proxy: "http://localhost:8888/voluntarios/dist/public/voluntarios.php",
         browser: "google chrome"
     });
     

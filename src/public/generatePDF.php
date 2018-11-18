@@ -2,7 +2,7 @@
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    require 'fpdf181/fpdf.php';
+    require '../resources/libs/fpdf181/fpdf.php';
 
     // clean previous files
 

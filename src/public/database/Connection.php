@@ -4,11 +4,14 @@ class Connection
 {
     public static function make()
     {
+
+        require ('../resources/config.php');
+
         // PDO
-        $host = "localhost";
-        $user = "webapp";
-        $password = "UNvHL8Q8";
-        $dbname = "voluntarios";
+        $host = $config["db"]["voluntarios"]["host"];
+        $user = $config["db"]["voluntarios"]["username"];
+        $password = $config["db"]["voluntarios"]["password"];
+        $dbname = $config["db"]["voluntarios"]["dbname"];
 
         $options = [
             // Comment before PROD

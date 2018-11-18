@@ -203,7 +203,7 @@
             </form>
         </div>
     </main>
-    <!-- build:js scripts/main.js -->
+     <!--removeIf(production)-->
     <script src="scripts/form.js"></script>
     <!-- Core Material Kit JS Files -->
     <script src="scripts/material-kit/js/core/jquery.min.js" type="text/javascript"></script>
@@ -216,7 +216,9 @@
     <script src="scripts/material-kit/js/material-kit.min.js" type="text/javascript"></script>
     <!-- Material Design Lite JS -->
     <script src="scripts/material.min.js"></script>
-    <!-- endbuild -->
+    <!--endRemoveIf(production)-->
+    <!-- inject:js -->
+    <!-- endinject -->
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script type="text/javascript">

@@ -245,7 +245,7 @@
       </div>
     </div>
   </div>
-  <!-- build:js scripts/main.js -->
+  <!-- build:js public/scripts/main.js -->
   <script src="scripts/form.js"></script>
   <script src="scripts/participacoes.js"></script>
   <!-- Core Material Kit JS Files -->
