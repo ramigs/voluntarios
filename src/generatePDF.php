@@ -8,7 +8,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $cleanPost = array_map('test_input', $_POST);
 
-    $filename = 'hello.pdf';
+    if (!file_exists('./downloads')) {
+        mkdir('./downloads', 0777, true);
+    }
+
+    $filename = './downloads/hello.pdf';
 
     $pdf = new FPDF();
     $pdf->AddPage();
@@ -19,9 +23,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //$pdf->Cell(40, 10, utf8_decode($cleanPost['acaoNome']));
     //$pdf->Cell(40, 10, utf8_decode($cleanPost['acaoLocal']));
     //$pdf->Cell(40, 10, $cleanPost['acaoData']);
+    
     $pdf->Output('F', $filename);
 
+
     echo ($filename);
+
+    //$content = $pdf->Output(); //return the pdf file content as string
+
+    //echo $content;
+
+    //echo ($pdf->Output());
+
 
 } else {
     header('Location: voluntarios.php');
