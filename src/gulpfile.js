@@ -97,7 +97,7 @@ gulp.task('browser-sync', ['mdl-dev'], function() {
             baseDir: paths.tmp, 
         }, */
         // MAMP
-        proxy: "http://localhost:8888/voluntarios/tmp/public/voluntarios.php",
+        proxy: "http://localhost:8888/voluntarios/tmp/public/",
         browser: "google chrome"
     });
 
@@ -157,7 +157,7 @@ gulp.task('browser-sync-prod-test', ['php-clean'], function() {
             baseDir: paths.dist, 
         }, */
         // MAMP
-        proxy: "http://localhost:8888/voluntarios/dist/public/voluntarios.php",
+        proxy: "http://localhost:8888/voluntarios/dist/public/",
         browser: "google chrome"
     });
     

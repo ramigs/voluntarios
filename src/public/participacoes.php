@@ -1,4 +1,11 @@
-<?php 
+<?php
+
+session_start();
+
+if (!isset($_SESSION['userId'])) {
+    header ("Location: login.php");
+    exit;
+}
 
 // Error reporting for DEV purposes
 // Comment before PROD
@@ -6,7 +13,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// If request came from 'voluntarios.php'
+// If request came from 'index.php'
 if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['voluntarioId'])) {
 
     require 'database/Connection.php';
@@ -16,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['voluntarioId'])) {
     $voluntarioId = test_input($_POST["voluntarioId"]);
 
     try {
-        $pdo = Connection::make();
+        $pdo = Connection::makePDO();
 
         $query = new QueryBuilder($pdo);
         $voluntario = $query->selectVoluntarioById($voluntarioId);
@@ -40,8 +47,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['voluntarioId'])) {
 
 } else {
     // If it has not been submitted, skip the validation
-    //header('Location: voluntarios.php');
-    //exit;
+    //header('Location: index.php');
+    //exit();
 }
 
 function test_input($data)

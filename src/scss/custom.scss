@@ -19,3 +19,11 @@
         display: none;
     }
 }
+
+.error-login {
+    color: $brand-danger;
+}
+
+.card .card-header-primary {
+    background: linear-gradient(60deg, $primary-color, $primary-variant-color);
+}

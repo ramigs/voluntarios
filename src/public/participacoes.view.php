@@ -1,49 +1,14 @@
+<?php include("../resources/config.php"); ?>
 <!DOCTYPE html>
 <html lang="pt">
 
 <head>
-    <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-
-    <!-- Fonts and icons -->
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-
-    <link rel="stylesheet" href="styles/bundle.css">
-
-    <title>Banco Alimentar Setúbal - Participações do Voluntário</title>
-
+    <?php include("../resources/templates/head-tag-contents.tpl.php");?>
 </head>
 
 <body>
     <header>
-        <nav class="navbar fixed-top navbar-expand-lg bg-primary">
-            <div class="container">
-                <a class="navbar-brand" href="#">LOGO</a>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="voluntarios.php">Listar</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="registar.php">Registar</a>
-                        </li>
-                    </ul>
-                </div>
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
-                            <i class="material-icons">face</i>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">Sair</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+        <?php include("../resources/templates/navigation.tpl.php"); ?>
     </header>
 
     <main class="main">

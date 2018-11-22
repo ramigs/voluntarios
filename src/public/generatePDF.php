@@ -1,6 +1,6 @@
 <?php
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["btnPDF"])) {
 
     require '../resources/libs/fpdf181/fpdf.php';
 
@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         mkdir('./downloads', 0777, true);
     }
 
-    $filename = './downloads/hello.pdf';
+    $filename = './downloads/documento.pdf';
 
     $pdf = new FPDF();
     $pdf->AddPage();
@@ -37,7 +37,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 } else {
-    header('Location: voluntarios.php');
+    header('Location: index.php');
+    exit();
 }
 
 function test_input($data)

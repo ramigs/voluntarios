@@ -2,6 +2,9 @@
 dist
 tmp
 src/node_modules
+src/resources/PROD_config.php
+db/scripts/PROD_create_schema_voluntarios.sql
+db/scripts/QA_create_schema_voluntarios.sql
 # Mac OS X and temp files
 *~
 .DS_Store

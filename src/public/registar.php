@@ -2,6 +2,11 @@
 
 session_start();
 
+if (!isset($_SESSION['userId'])) {
+    header ("Location: login.php");
+    exit;
+}
+
 // Error reporting for DEV purposes
 // Comment before PROD
 ini_set('display_errors', 1);
@@ -56,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         require 'database/QueryBuilder.php';
         require 'Voluntario.php';
 
-        $pdo = Connection::make();
+        $pdo = Connection::makePDO();
     
         // PREPARED STATEMENTS
         
@@ -99,7 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION['nomenewvol'] = $nome;
     $_SESSION['apelidonewvol'] = $apelido;
 
-    header('Location: voluntarios.php');
+    header('Location: index.php');
     exit;
 
 } else {
