@@ -154,7 +154,9 @@ document.addEventListener('DOMContentLoaded', function (evt) {
 
             }
 
-            if (nif  && !validateNIF(nif)) {
+            // Validação do NIF desativada para a campanha de 01/12/2018
+            //if (nif  && !validateNIF(nif)) {
+            if (!nif) {    
 
                 isFormDataValid = false;
 

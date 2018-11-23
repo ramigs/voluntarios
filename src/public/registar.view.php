@@ -15,7 +15,7 @@
       <div class="section section-contacts">
         <div class="row">
           <div class="col-md-8 ml-auto mr-auto">
-            <h2 class="text-center title">Registar Voluntário</h2>
+            <h3 class="text-center">Registar Voluntário</h3>
             <form class="contact-form" id="novo-voluntario-form" action="registar.php" method="post">
               <div class="row">
                 <div class="col-md-6">
@@ -81,11 +81,11 @@
                 <div class="col-md-6">
                 <!-- NIF -->
                 <div class="form-group bmd-form-group" data-error="invalid-nif-group">
-                  <label class="bmd-label-floating">Contribuinte</label>
+                  <label class="bmd-label-floating">Contribuinte*</label>
                   <input type="text" class="form-control" name="nif" maxlength="9">
                   <span class="material-icons form-control-feedback" data-error="invalid-nif-icon">clear</span>
                   <small class="form-text text-muted" data-error="invalid-nif-text">
-                    NIF inválido
+                    Campo de preenchimento obrigatório
                   </small>
                 </div>
                 </div>
@@ -198,7 +198,7 @@
               <div class="row">
                 <div class="col-md-4 ml-auto mr-auto text-center">
                   <button type="submit" class="btn btn-primary btn-raised btn-lg">
-                    Enviar
+                    Registar
                   </button>
                 </div>
               </div>

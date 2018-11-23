@@ -36,7 +36,7 @@
                             <input type="hidden" name="acaoNome" value="<?= htmlspecialchars($row['nome']); ?>">
                             <input type="hidden" name="acaoLocal" value="<?= htmlspecialchars($row['local']); ?>">
                             <input type="hidden" name="acaoData" value="<?= htmlspecialchars($row['data']); ?>">
-                            <button type="button" name="btnPDF" data-toggle="tooltip" class="btn btn-danger btn-simple btn-xs" title="Gerar Declaração">
+                            <button type="button" name="btnPDF" class="btn btn-danger btn-simple btn-xs">
                                 <i class="material-icons">save_alt</i>
                             </button>
                         </td>

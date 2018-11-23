@@ -27,3 +27,8 @@
 .card .card-header-primary {
     background: linear-gradient(60deg, $primary-color, $primary-variant-color);
 }
+
+.btn.btn-info {
+    background: $primary-color;
+}
+

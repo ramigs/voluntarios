@@ -23,17 +23,50 @@
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true"><i class="material-icons">clear</i></span>
                     </button>
-                    <b>Registo Completo:</b> Voluntário inserido com sucesso!
+                    <b>Registo Completo:</b> Voluntário <strong><?= $newVoluntarioNome . ' ' .  $newVoluntarioApelido; ?></strong> registado com sucesso!
                 </div>
             </div>
             <?php endif; ?>
             <h3 class="text-center">Voluntários Registados</h3>
+            <p class="text-right"><strong><?= count($voluntarios); ?></strong> voluntários registados à data de <?= date("d/m/Y"); ?></p>
             <!-- <?php echo $CURRENT_PAGE ?>
             <?php echo $_SERVER["SCRIPT_NAME"]; ?>
             <?php echo $_SERVER["PHP_SELF"]; ?>
             <?php echo $_SERVER["DOCUMENT_ROOT"]; ?>
             <?php echo realpath(dirname(__FILE__)); ?> -->
-            <?= displayTableVoluntarios($voluntarios, $tiposRegisto); ?>
+            <table class="table">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Nome</th>
+                        <th class="text-right">Idade</th>
+                        <th>Email</th>
+                        <th>Localidade</th>
+                        <th>Tipo de Registo</th>
+                        <th class="text-right">Ações</th>
+                    </tr>
+                </thead>
+                <?php foreach ($voluntarios as $voluntario) : ?>
+                    <tr>
+                        <td><?= htmlspecialchars($voluntario->nome) . ' ' . htmlspecialchars($voluntario->apelido); ?></td>
+                        <td class="text-right"><?= htmlspecialchars(calculateAgeFromDateOfBirth($voluntario->data_nascimento)); ?></td>
+                        <td><?= htmlspecialchars($voluntario->email1); ?></td>
+                        <td><?= htmlspecialchars($voluntario->localidade); ?></td>
+                        <td><?= htmlspecialchars(decodeTipoRegisto($tiposRegisto, $voluntario->tipo_registo)); ?></td>
+                        <td class="text-right">
+                            <form action="participacoes.php" method="post">
+                                <input type="hidden" name="voluntarioId" value="<?= htmlspecialchars($voluntario->id); ?>">
+                                <button type="submit" rel="tooltip" title="Ver Participações" class="btn btn-info btn-fab btn-fab-mini">
+                                    <i class="fa fa-user"></i>
+                                </button>
+                                <button type="button" rel="tooltip" title="Apagar Voluntário" class="btn btn-danger btn-fab btn-fab-mini">
+                                    <i class="material-icons">close</i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+            <!-- <?= displayTableVoluntarios($voluntarios, $tiposRegisto); ?> -->
         </div>
     </main>
     

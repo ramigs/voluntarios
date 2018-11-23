@@ -31,24 +31,6 @@ document.addEventListener('DOMContentLoaded', function (evt) {
                     success: function (resp) {
                         //alert(resp);
 
-                        /* var fileName = "oi.pdf";
-                        var buffer = resp;
-                        var blob = new Blob([resp], { "type": "application/pdf" });
-
-                        var link = document.createElement("a");
-
-                        if (link.download !== undefined) { // feature detection
-                            // Browsers that support HTML5 download attribute
-                            link.setAttribute("href", window.URL.createObjectURL(blob));
-                            link.setAttribute("download", fileName);
-                            document.body.appendChild(link);
-                            link.click();
-                            document.body.removeChild(link);
-                        } else {
-                            alert('CSV export only works in Chrome, Firefox, and Opera.');
-                        } */
-
-
                         let dlink = document.createElement("a");
 
                         dlink.href = resp;
@@ -65,19 +47,6 @@ document.addEventListener('DOMContentLoaded', function (evt) {
             });
         });
 
-        /* $(function () {
-            //$('[data-toggle="tooltip"]').tooltip("show");
-            $('[data-toggle="tooltip"]').find(".tooltip.fade.top").removeClass("in");
-         }); */
-
-        $('[data-toggle="tooltip"]').click(function () {
-            $('[data-toggle="tooltip"]').tooltip("hide");
-
-            /* $('[data-toggle="tooltip"]').tooltip({
-                trigger : 'manual'
-            })   */
-
-        });
     }
 
 });

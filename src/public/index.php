@@ -52,8 +52,11 @@ function displayTableVoluntarios($voluntarios, $tiposRegisto)
 
             $buttonsHTML = '<form action="participacoes.php" method="post">' .
                 '<input type="hidden" name="voluntarioId" value="' . $voluntario->id . '">' .
-                '<button type="submit" rel="tooltip" title="Ver Participações" class="btn btn-info btn-simple btn-xs">
+                '<button type="submit" rel="tooltip" title="Ver Participações" class="btn btn-info btn-fab btn-fab-mini">
                     <i class="fa fa-user"></i>
+                </button>' .
+                '<button type="button" rel="tooltip" title="Apagar Voluntário" class="btn btn-danger btn-fab btn-fab-mini">
+                    <i class="material-icons">close</i>
                 </button>' .
                 '</form>';
 

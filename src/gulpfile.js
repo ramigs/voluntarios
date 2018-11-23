@@ -17,7 +17,8 @@ const paths = {
     srcJS: 'public/scripts/*.js',
     srcMaterialJS: 'resources/libs/material-kit-html-v2.0.4/assets/js/**/*',
     srcMDLJS: 'resources/libs/mdl/material.min.js',
-    srcFPDF: 'resources/libs/fpdf181/',
+    srcFPDFFonts: 'resources/libs/fpdf181/font/*.z',
+    srcImages: 'public/images/*',
   
     // tmp - dev files: Sass compiled, JavaScript copied
     tmp: '../tmp',
@@ -26,22 +27,25 @@ const paths = {
     tmpJS: '../tmp/public/scripts/',
     tmpMaterialJS: '../tmp/public/scripts/material-kit/js',
     tmpMDLJS: '../tmp/public/scripts/',
-    tmpFPDF: '../tmp/resources/libs/',
+    tmpFPDFFonts: '../tmp/resources/libs/fpdf181/font/',
+    tmpImages: '../tmp/public/images/',
 
     // dist - production files: processed, minified
     dist: '../dist/',
     distCSS: '../dist/public/styles/',
-    distJS: '../dist/public/scripts/'
+    distJS: '../dist/public/scripts/',
+    distFPDFFonts: '../dist/resources/libs/fpdf181/font/',
+    distImages: '../dist/public/images/',
 };
 
 // Dev Task
-gulp.task('dev', ['php-dev', 'sass-dev', 'js-dev', 'materialkit-dev', 'mdl-dev', 'browser-sync'], function() {
+gulp.task('dev', ['php-dev', 'sass-dev', 'js-dev', 'materialkit-dev', 'mdl-dev', 'images-dev', 'fpdffonts-dev', 'browser-sync'], function() {
 });
 
 // 1 - Copy all PHP from src to tmp
 gulp.task('php-dev', function() {
     return gulp.src(paths.srcPHP).pipe(gulp.dest(paths.tmp));
-  });
+});
   
 // 1.1 Ensure 'php-dev' is complete before reloading browser
 gulp.task('php-dev-watch', ['php-dev'], function (done) {
@@ -89,8 +93,18 @@ gulp.task('mdl-dev', ['materialkit-dev'], function() {
     return gulp.src(paths.srcMDLJS).pipe(gulp.dest(paths.tmpMDLJS));
 });
 
-// 6 - Static dev server
-gulp.task('browser-sync', ['mdl-dev'], function() {
+// 6 - Copy additional FPDF font files to tmp
+gulp.task('fpdffonts-dev', ['mdl-dev'], function() {
+    return gulp.src(paths.srcFPDFFonts).pipe(gulp.dest(paths.tmpFPDFFonts));
+});
+
+// 7 - Copy images to tmp
+gulp.task('images-dev', ['fpdffonts-dev'], function() {
+    return gulp.src(paths.srcImages).pipe(gulp.dest(paths.tmpImages));
+});
+
+// 7 - Static dev server
+gulp.task('browser-sync', ['images-dev'], function() {
     browserSync.init({
         // Default Browsersync server
         /* server: {
@@ -109,7 +123,7 @@ gulp.task('browser-sync', ['mdl-dev'], function() {
 
 // Build Task
 gulp.task('build', 
-    ['php-build', 'css-build', 'php-clean', 'browser-sync-prod-test'], function() {
+    ['php-build', 'css-build', 'php-clean', 'images-build', 'fpdffonts-build', 'browser-sync-prod-test'], function() {
 });
 
 /* gulp.task('js-build', function() {
@@ -149,8 +163,18 @@ gulp.task('php-clean', ['css-build'], function() {
         .pipe(gulp.dest(paths.dist + 'public/'));
 });
 
-// 4 - Static server
-gulp.task('browser-sync-prod-test', ['php-clean'], function() {
+// 4 - Copy images to dist
+gulp.task('images-build', ['php-clean'], function() {
+    return gulp.src(paths.tmpImages + '*').pipe(gulp.dest(paths.distImages));
+});
+
+// 5 - Copy additional FPDF font files to tmp
+gulp.task('fpdffonts-build', ['images-build'], function() {
+    return gulp.src(paths.tmpFPDFFonts + '*.z').pipe(gulp.dest(paths.distFPDFFonts));
+});
+
+// 6 - Static server
+gulp.task('browser-sync-prod-test', ['fpdffonts-build'], function() {
     browserSync.init({
         // Default Browsersync server
         /* server: {
