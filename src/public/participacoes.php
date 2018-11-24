@@ -30,12 +30,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['voluntarioId'])) {
 
         $acoesVoluntario = $query->selectParticipacoesVoluntario($voluntarioId);
 
-        // TO REFACTOR: Instead of sorting here, fetch data
-        // already sorted from database
-        usort($acoesVoluntario, function ($a, $b) {
-            return ($a['data'] > $b['data']);
-        });
-
         $query = null;
         $pdo = null;
 
@@ -47,8 +41,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['voluntarioId'])) {
 
 } else {
     // If it has not been submitted, skip the validation
-    //header('Location: index.php');
-    //exit();
+    header('Location: index.php');
+    exit();
 }
 
 function test_input($data)

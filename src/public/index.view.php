@@ -14,18 +14,32 @@
     <main class="main">
         <div class="voluntarios-content">
             <?php if (isset($newVoluntarioId)) : ?>
-            <!-- Alerta Sucesso -->
-            <div class="alert alert-success">
-                <div class="container-fluid">
-                    <div class="alert-icon">
-                        <i class="material-icons">check</i>
+                <!-- Alerta Sucesso - Registo Completo -->
+                <div class="alert alert-success">
+                    <div class="container-fluid">
+                        <div class="alert-icon">
+                            <i class="material-icons">check</i>
+                        </div>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true"><i class="material-icons">clear</i></span>
+                        </button>
+                        <b>Registo Completo:</b> Voluntário <strong><?= $newVoluntarioNome . ' ' .  $newVoluntarioApelido; ?></strong> registado com sucesso!
                     </div>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true"><i class="material-icons">clear</i></span>
-                    </button>
-                    <b>Registo Completo:</b> Voluntário <strong><?= $newVoluntarioNome . ' ' .  $newVoluntarioApelido; ?></strong> registado com sucesso!
                 </div>
-            </div>
+            <?php endif; ?>
+            <?php if (isset($deletedVoluntarioId)) : ?>
+                <!-- Alerta Sucesso - Voluntário Apagado -->
+                <div class="alert alert-success">
+                    <div class="container-fluid">
+                        <div class="alert-icon">
+                            <i class="material-icons">check</i>
+                        </div>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true"><i class="material-icons">clear</i></span>
+                        </button>
+                        <b>Operação Completa:</b> Voluntário apagado com sucesso!
+                    </div>
+                </div>
             <?php endif; ?>
             <h3 class="text-center">Voluntários Registados</h3>
             <p class="text-right"><strong><?= count($voluntarios); ?></strong> voluntários registados à data de <?= date("d/m/Y"); ?></p>
@@ -58,7 +72,8 @@
                                 <button type="submit" rel="tooltip" title="Ver Participações" class="btn btn-info btn-fab btn-fab-mini">
                                     <i class="fa fa-user"></i>
                                 </button>
-                                <button type="button" rel="tooltip" title="Apagar Voluntário" class="btn btn-danger btn-fab btn-fab-mini">
+                                <button type="button" class="btn btn-danger btn-fab btn-fab-mini"
+                                        data-toggle="modal" data-target="#exampleModal<?= htmlspecialchars($voluntario->id); ?>">
                                     <i class="material-icons">close</i>
                                 </button>
                             </form>
@@ -66,11 +81,38 @@
                     </tr>
                 <?php endforeach; ?>
             </table>
-            <!-- <?= displayTableVoluntarios($voluntarios, $tiposRegisto); ?> -->
         </div>
     </main>
+    <?php foreach ($voluntarios as $voluntario) : ?>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal<?= htmlspecialchars($voluntario->id); ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel<?= htmlspecialchars($voluntario->id); ?>" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel<?= htmlspecialchars($voluntario->id); ?>">Apagar Voluntário</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                    </div>
+                    <div class="modal-body">
+                        Tem a certeza que deseja apagar este voluntário?
+                    </div>
+                    <div class="modal-footer">
+                        <form action="deleteVoluntario.php" method="post">
+                            <input type="hidden" name="voluntarioId" value="<?= htmlspecialchars($voluntario->id); ?>">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" name="submit-delete" class="btn btn-primary">Apagar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php endforeach; ?>
+
     
     <!--removeIf(production)-->
+    <script src="scripts/form.js"></script>
+    <script src="scripts/participacoes.js"></script>
     <!-- Core Material Kit JS Files -->
     <script src="scripts/material-kit/js/core/jquery.min.js" type="text/javascript"></script>
     <script src="scripts/material-kit/js/core/popper.min.js" type="text/javascript"></script>

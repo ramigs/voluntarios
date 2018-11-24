@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function (evt) {
             removeHasDangerClass();
             hideErrorXIcons();
             hideFormTextMessages();
+            hideAlerts();
             
             form.querySelector('[data-error="invalid-cp-text"]').style.display = 'block';
             form.querySelector('[data-error="invalid-cp-text"]').innerHTML = 'Formato: 0000-000'
@@ -164,6 +165,29 @@ document.addEventListener('DOMContentLoaded', function (evt) {
                 form.querySelector('[data-error="invalid-nif-icon"]').style.display = 'inline-block';
                 form.querySelector('[data-error="invalid-nif-text"]').style.display = 'block';
 
+            } else {
+
+                $.ajax({
+                    url: 'checkNIF.php',
+                    method: 'POST',
+                    data: {
+                        'nif': nif,
+                    },
+                    success: function (resp) {
+                        if (resp == 1) {
+                            document.querySelector('div[name="alert-nif-exists"]').style.display = 'block';
+                            form.querySelector('[data-error="invalid-nif-group"]').classList.add('has-danger');
+                            form.querySelector('[data-error="invalid-nif-icon"]').style.display = 'inline-block';
+                        } else {
+                            document.querySelector('div[name="alert-nif-exists"]').style.display = 'none';   
+                        }
+                    },
+                    error: function() {
+                        // Add Alert Warning: Database Error Connection
+                        //alert('Error connecting to database!');
+                    }
+                });
+
             }
 
             if (localidade  && !validateName(localidade)) {
@@ -195,6 +219,13 @@ document.addEventListener('DOMContentLoaded', function (evt) {
     }
 
 });
+
+// Hide Alerts
+function hideAlerts() {
+    [].forEach.call(document.querySelectorAll('.alert'), function (al) {
+        al.style.display = 'none';
+    });
+}
 
 // Remove class 'has-danger' from every 'form-group' div
 function removeHasDangerClass() {

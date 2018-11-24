@@ -28,7 +28,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // A4 width: 219mm
     // default margin: 10mm each side
-    // writable horizontal: 219 - (10 * 2) = 189mm
+    // configured margin: 20mm each side
+    // writable horizontal: 219 - (20 * 2) = 169mm
     $pdf->AddPage('P', 'A4');
     $pdf->SetMargins(20, 30, 20);
     $pdf->SetAutoPageBreak(TRUE, 0);
@@ -47,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pdf->Write(5, utf8_decode('O BANCO ALIMENTAR CONTRA A FOME NA PENÍNSULA DE SETÚBAL'));
     $pdf->SetFont('Calibri', '', 11);
     $pdf->Write(5, utf8_decode(', '));
-    //$pdf->Ln();
+
     $pdf->SetFont('Calibri', '', 11);
     $pdf->Write(5, utf8_decode('Instituição Particular de Solidariedade Social, inscrita com o Nº 81/2001, a fls. 178 do livro Nº 8 das Associações de Solidariedade Social (DR Nº 187, III Série, 13/08/2001), com sede na Urbanização Vila Amélia - Lote 1001, Fracções A a C - Cabanas - Palmela, Contribuinte nº '));
 
@@ -85,10 +86,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pdf->SetFont('Calibri', 'B', 10);
     $pdf->Cell(0, 10, utf8_decode('PORQUE A FOME EXISTE 24 HORAS POR DIA, 7 DIAS POR SEMANA, 365 DIAS POR ANO'), 0, 0, 'L');
 
-    $pdf->Ln(10);
+    $pdf->Ln(20);
 
     $pdf->SetFont('Calibri', '', 11);
-    $pdf->Cell(0, 10, utf8_decode('Pode fazer um donativo para alimentar esta causa através do seguinte,'), 0, 0, 'L');
+    $pdf->Write(5, utf8_decode('Caso pretenda'));
+    //$pdf->Cell(0, 10, utf8_decode('Caso pretenda fazer um donativo para, poderá utilizar o seguinte NIB'), 0, 0, 'L');
+    $pdf->SetFont('Calibri', 'B', 11);
+    $pdf->Write(5, utf8_decode(' alimentar esta ideia'));
+    $pdf->SetFont('Calibri', '', 11);
+    $pdf->Write(5, utf8_decode(' poderá utilizar o seguinte NIB'));
 
     $pdf->SetFont('Calibri', 'B', 11);
 
@@ -116,30 +122,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pdf->Cell(0, 10, utf8_decode('http://setubal.bancoalimentar.pt'), 0, 0, 'L');
     $pdf->SetTextColor(0,0,0);
     $pdf->Cell(0, 10, utf8_decode('COLETIVA DE UTILIDADE PÚBLICA'), 0, 0, 'R');
-
-    //$pdf->Cell(0, 10, utf8_decode('INSTITUIÇÃO RECONHECIDA COMO PESSOA'), 0, 0, 'R');
-    //$pdf->Ln(3);
-    //$pdf->Cell(0, 10, utf8_decode('COLETIVA DE UTILIDADE PÚBLICA'), 0, 0, 'R');
-
-    /* $pdf->SetFont('Calibri', 'B', 16);
-    $pdf->Cell(40, 10, utf8_decode($cleanPost['voluntarioNome']));
-    $pdf->Cell(40, 10, utf8_decode($cleanPost['voluntarioApelido'])); */
-    //$pdf->Cell(40, 10, $cleanPost['voluntarioNIF']);
-    //$pdf->Cell(40, 10, utf8_decode($cleanPost['acaoNome']));
-    //$pdf->Cell(40, 10, utf8_decode($cleanPost['acaoLocal']));
-    //$pdf->Cell(40, 10, $cleanPost['acaoData']);
     
     $pdf->Output('F', $filename);
 
-
     echo ($filename);
-
-    //$content = $pdf->Output(); //return the pdf file content as string
-
-    //echo $content;
-
-    //echo ($pdf->Output());
-
 
 } else {
     header('Location: index.php');
@@ -155,10 +141,6 @@ function test_input($data)
 }
 
 function dateToStringPT($date) {
-    /* $config = array(
-        "01" => "janeiro",
-        "02" => "fevereiro"
-    ); */
 
     setlocale(LC_TIME, 'pt_PT', 'pt_PT.utf-8', 'pt_PT.utf-8', 'portuguese');
     date_default_timezone_set('Europe/Lisbon');

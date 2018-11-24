@@ -15,7 +15,19 @@
       <div class="section section-contacts">
         <div class="row">
           <div class="col-md-8 ml-auto mr-auto">
+            <br>
             <h3 class="text-center">Registar Voluntário</h3>
+            <div name="alert-nif-exists" class="alert alert-warning">
+              <div class="container-fluid">
+                <div class="alert-icon">
+	                <i class="material-icons">warning</i>
+                </div>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	                <span aria-hidden="true"><i class="material-icons">clear</i></span>
+                </button>
+                <b>Atenção:</b> Já existe um voluntário registado com o Contribuinte introduzido!
+              </div>
+            </div>
             <form class="contact-form" id="novo-voluntario-form" action="registar.php" method="post">
               <div class="row">
                 <div class="col-md-6">

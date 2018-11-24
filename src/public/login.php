@@ -4,10 +4,10 @@ session_start();
 
 // If the user is logged-in and requests this page directly from the browser,
 // then proceed to logout the user
-if (isset($_SESSION['userId'])) {
+/* if (isset($_SESSION['userId'])) {
     require ('logout.php');
     exit;
-}
+} */
 
 if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login-submit'])) {
 
