@@ -10,8 +10,9 @@ if (!isset($_SESSION['userId'])) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     require '../resources/libs/fpdf181/fpdf.php';
+    require 'Helper.php';
 
-    $cleanPost = array_map('test_input', $_POST);
+    $cleanPost = array_map('Helper::test_input', $_POST);
 
     $userDownloadFolder = './downloads/' . $_SESSION['userId'] . '/' ;
 
@@ -63,11 +64,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pdf->SetFont('Calibri', 'B', 11);
     $pdf->Write(5, utf8_decode($cleanPost['voluntarioNIF']));
     $pdf->SetFont('Calibri', '', 11);
-    $pdf->Write(5, utf8_decode(', participou como voluntário na ' . $cleanPost['acaoNome'] . ', ocorrida em ' . $cleanPost['acaoLocal'] . ', no dia ' . dateToStringPT($cleanPost['acaoData']) . ', nesta Instituição.'));
+    $pdf->Write(5, utf8_decode(', participou como voluntário na ' . $cleanPost['acaoNome'] . ', ocorrida em ' . $cleanPost['acaoLocal'] . ', no dia ' . Helper::dateToStringPT($cleanPost['acaoData']) . ', nesta Instituição.'));
 
     $pdf->Ln(15);
 
-    $pdf->Cell(0, 10, utf8_decode('Palmela, ' . dateToStringPT("today")), 0, 0, 'R');
+    $pdf->Cell(0, 10, utf8_decode('Palmela, ' . Helper::dateToStringPT("today")), 0, 0, 'R');
 
     $pdf->Ln(15);
 
@@ -90,7 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $pdf->SetFont('Calibri', '', 11);
     $pdf->Write(5, utf8_decode('Caso pretenda'));
-    //$pdf->Cell(0, 10, utf8_decode('Caso pretenda fazer um donativo para, poderá utilizar o seguinte NIB'), 0, 0, 'L');
+    
     $pdf->SetFont('Calibri', 'B', 11);
     $pdf->Write(5, utf8_decode(' alimentar esta ideia'));
     $pdf->SetFont('Calibri', '', 11);
@@ -130,21 +131,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } else {
     header('Location: index.php');
     exit();
-}
-
-function test_input($data)
-{
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
-
-function dateToStringPT($date) {
-
-    setlocale(LC_TIME, 'pt_PT', 'pt_PT.utf-8', 'pt_PT.utf-8', 'portuguese');
-    date_default_timezone_set('Europe/Lisbon');
-    return strftime('%d de %B de %Y', strtotime($date));
 }
 
 ?>

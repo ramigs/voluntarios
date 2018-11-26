@@ -1,83 +1,70 @@
 <?php
 
-session_start();
+// Error reporting for DEV purposes
+// Comment before PROD
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-// If the user is logged-in and requests this page directly from the browser,
-// then proceed to logout the user
-/* if (isset($_SESSION['userId'])) {
-    require ('logout.php');
-    exit;
-} */
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login-submit'])) {
 
-if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login-submit'])) {
+    require('database/Connection.php');
+    require('database/QueryBuilder.php');
+    require 'Helper.php';
+    require 'User.php';
 
-    require ('database/Connection.php');
-
-    $username = test_input($_POST['username']);
-    $password = test_input($_POST['password']);
+    $username = Helper::test_input($_POST['username']);
+    $password = Helper::test_input($_POST['password']);
 
     if (empty($username) || empty($password)) {
         header("Location: login.php?error=emptyfields");
         exit;
     } else {
 
-        $conn = Connection::makeMySQLi();
+            $pdo = Connection::makePDO();
 
-        $sql = "SELECT * FROM user where username=?";
-        $stmt = mysqli_stmt_init($conn);
+            $query = new QueryBuilder($pdo);
 
-        if (!mysqli_stmt_prepare($stmt, $sql)) {
-            
-            header ("Location: login.php?error=dberror");
-            exit;
+            $userArray = $query->selectUserByUsername($username);
 
-        } else {
-            
-            mysqli_stmt_bind_param($stmt, "s", $username);
-            mysqli_stmt_execute($stmt);
-            $result = mysqli_stmt_get_result($stmt);
+            if (count($userArray) > 0) {
+                $u = $userArray[0];
 
-            if ($row = mysqli_fetch_assoc($result)) {
+                if (!function_exists('password_verify')) {
+                    require "../resources/libs/password_compat-master/lib/password.php";
+                }
 
-                $pwdCheck = password_verify($password, $row['password_hash']);
+                $pwdCheck = password_verify($password, $u->password_hash);
 
                 if ($pwdCheck == false) {
-                    mysqli_stmt_close($stmt);
-                    mysqli_close($conn);
-                    header ("Location: login.php?error=invalidlogin");
+                    $pdo = null;
+                    $query = null;
+                    header("Location: login.php?error=invalidlogin");
                     exit;
                 } else if ($pwdCheck == true) {
                     session_start();
-                    $_SESSION['userId'] = $row['id'];
-                    $_SESSION['userName'] = $row['username'];
+                    $_SESSION['userId'] = $u->id;
+                    $_SESSION['userName'] = $u->username;
 
-                    mysqli_stmt_close($stmt);
-                    mysqli_close($conn);
-                    header ("Location: index.php");
+                    $pdo = null;
+                    $query = null;
+                    header("Location: index.php");
                     exit;
                 }
 
             } else {
-                mysqli_stmt_close($stmt);
-                mysqli_close($conn);
-                header ("Location: login.php?error=invalidlogin");
+
+                $pdo = null;
+                $query = null;
+                header("Location: login.php?error=invalidlogin");
                 exit;
             }
-        }
     }
 
 } else {
 
     require('login.view.php');
 
-}
-
-function test_input($data)
-{
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
 }
 
 ?>

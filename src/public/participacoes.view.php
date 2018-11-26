@@ -13,7 +13,7 @@
 
     <main class="main">
         <div class="voluntarios-content">
-            <h3 class="text-center">Participações do Voluntário</h3>
+            <h3 class="text-center card-title">Participação do Voluntário</h3>
             <h5 class="text-center"><?= htmlspecialchars($voluntario->nome) . ' ' . htmlspecialchars($voluntario->apelido); ?></h5>
             <table class="table">
                 <thead class="table-dark">

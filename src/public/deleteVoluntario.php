@@ -21,6 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"
         && isset($_POST['submit-delete'])) {
 
     require 'database/Connection.php';
+    require 'Helper.php';
 
     $pdo = Connection::makePDO();
 
@@ -40,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"
                 WHERE id = :id");
 
 
-    $voluntarioId = test_input($_POST["voluntarioId"]);
+    $voluntarioId = Helper::test_input($_POST["voluntarioId"]);
     $stmt->bindValue(':nomeMasked', 'nomeMask', PDO::PARAM_STR);
     $stmt->bindValue(':apelidoMasked', 'apelidoMask', PDO::PARAM_STR);
     $stmt->bindValue(':dtNascMasked', null, PDO::PARAM_INT);
@@ -65,14 +66,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"
 
     header('Location: index.php');
     exit;
-}
-
-function test_input($data)
-{
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
+} else {
+    header('Location: index.php');
+    exit;
 }
 
 ?>

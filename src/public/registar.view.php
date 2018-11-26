@@ -16,7 +16,7 @@
         <div class="row">
           <div class="col-md-8 ml-auto mr-auto">
             <br>
-            <h3 class="text-center">Registar Voluntário</h3>
+            <h3 class="text-center card-title">Registar Voluntário</h3>
             <div name="alert-nif-exists" class="alert alert-warning">
               <div class="container-fluid">
                 <div class="alert-icon">
@@ -141,7 +141,7 @@
                 <div class="col-md-6">
                 <!-- Email1 -->
                 <div class="form-group bmd-form-group" data-error="invalid-email1-group">
-                    <label class="bmd-label-floating" for="email1">E-mail*</label>
+                    <label class="bmd-label-floating" for="email1">Email*</label>
                     <input type="email" class="form-control" id="email1" aria-describedby="emailHelp" name="email1"
                         maxlength="254">
                     <span class="material-icons form-control-feedback" data-error="invalid-email1-icon">clear</span>
@@ -220,7 +220,7 @@
       </div>
     </div>
   </div>
-
+   <!--removeIf(production)-->
   <!-- build:js public/scripts/main.js -->
   <script src="scripts/form.js"></script>
   <script src="scripts/participacoes.js"></script>
@@ -236,6 +236,9 @@
   <!-- Material Design Lite JS -->
   <script src="scripts/material.min.js"></script>
   <!-- endbuild -->
+  <!--endRemoveIf(production)-->
+  <!-- inject:js -->
+  <!-- endinject -->
   <!-- Place this tag in your head or just before your close body tag. -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
 

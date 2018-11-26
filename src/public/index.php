@@ -17,6 +17,7 @@ require 'database/Connection.php';
 require 'database/QueryBuilder.php';
 require 'Voluntario.php';
 require 'TipoRegisto.php';
+require 'Helper.php';
 
 $pdo = Connection::makePDO();
 
@@ -45,21 +46,5 @@ if(isset($_SESSION['iddeletedvol'])) {
 }
 
 require 'index.view.php';
-
-function calculateAgeFromDateOfBirth($dateOfBirth)
-{
-    $today = date("Y-m-d");
-    $diff = date_diff(date_create($dateOfBirth), date_create($today));
-    return $diff->format('%y');
-}
-
-function decodeTipoRegisto($tiposRegisto, $tipoRegisto)
-{
-    foreach ($tiposRegisto as $tr) {
-        if ($tr->codigo_registo == $tipoRegisto)
-            return $tr->descricao_registo;
-    }
-}
-
 
 ?>

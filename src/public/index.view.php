@@ -15,7 +15,7 @@
         <div class="voluntarios-content">
             <?php if (isset($newVoluntarioId)) : ?>
                 <!-- Alerta Sucesso - Registo Completo -->
-                <div class="alert alert-success">
+                <div class="alert alert-success" style="display:block;">
                     <div class="container-fluid">
                         <div class="alert-icon">
                             <i class="material-icons">check</i>
@@ -29,7 +29,7 @@
             <?php endif; ?>
             <?php if (isset($deletedVoluntarioId)) : ?>
                 <!-- Alerta Sucesso - Voluntário Apagado -->
-                <div class="alert alert-success">
+                <div class="alert alert-success" style="display:block;">
                     <div class="container-fluid">
                         <div class="alert-icon">
                             <i class="material-icons">check</i>
@@ -41,7 +41,7 @@
                     </div>
                 </div>
             <?php endif; ?>
-            <h3 class="text-center">Voluntários Registados</h3>
+            <h3 class="text-center card-title">Voluntários Registados</h3>
             <p class="text-right"><strong><?= count($voluntarios); ?></strong> voluntários registados à data de <?= date("d/m/Y"); ?></p>
             <!-- <?php echo $CURRENT_PAGE ?>
             <?php echo $_SERVER["SCRIPT_NAME"]; ?>
@@ -62,10 +62,10 @@
                 <?php foreach ($voluntarios as $voluntario) : ?>
                     <tr>
                         <td><?= htmlspecialchars($voluntario->nome) . ' ' . htmlspecialchars($voluntario->apelido); ?></td>
-                        <td class="text-right"><?= htmlspecialchars(calculateAgeFromDateOfBirth($voluntario->data_nascimento)); ?></td>
+                        <td class="text-right"><?= htmlspecialchars(Helper::calculateAgeFromDateOfBirth($voluntario->data_nascimento)); ?></td>
                         <td><?= htmlspecialchars($voluntario->email1); ?></td>
                         <td><?= htmlspecialchars($voluntario->localidade); ?></td>
-                        <td><?= htmlspecialchars(decodeTipoRegisto($tiposRegisto, $voluntario->tipo_registo)); ?></td>
+                        <td><?= htmlspecialchars(Helper::decodeTipoRegisto($tiposRegisto, $voluntario->tipo_registo)); ?></td>
                         <td class="text-right">
                             <form action="participacoes.php" method="post">
                                 <input type="hidden" name="voluntarioId" value="<?= htmlspecialchars($voluntario->id); ?>">
@@ -108,7 +108,6 @@
             </div>
         </div>
     <?php endforeach; ?>
-
     
     <!--removeIf(production)-->
     <script src="scripts/form.js"></script>

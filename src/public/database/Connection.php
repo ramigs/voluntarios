@@ -24,20 +24,6 @@ class Connection
         return new PDO($dsn, $user, $password, $options);
 
     }
-
-    public static function makeMySQLi()
-    {
-        require ('../resources/config.php');
-
-        $host = $config["db"]["voluntarios"]["host"];
-        $user = $config["db"]["voluntarios"]["username"];
-        $password = $config["db"]["voluntarios"]["password"];
-        $dbname = $config["db"]["voluntarios"]["dbname"];
-        
-        $conn = mysqli_connect($host, $user, $password, $dbname);
-
-        return $conn;
-    }
 }
 
 ?>

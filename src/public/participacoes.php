@@ -3,7 +3,7 @@
 session_start();
 
 if (!isset($_SESSION['userId'])) {
-    header ("Location: login.php");
+    header("Location: login.php");
     exit;
 }
 
@@ -19,23 +19,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['voluntarioId'])) {
     require 'database/Connection.php';
     require 'database/QueryBuilder.php';
     require 'Voluntario.php';
+    require 'Helper.php';
 
-    $voluntarioId = test_input($_POST["voluntarioId"]);
+    $voluntarioId = Helper::test_input($_POST["voluntarioId"]);
 
-    try {
-        $pdo = Connection::makePDO();
 
-        $query = new QueryBuilder($pdo);
-        $voluntario = $query->selectVoluntarioById($voluntarioId);
+    $pdo = Connection::makePDO();
 
-        $acoesVoluntario = $query->selectParticipacoesVoluntario($voluntarioId);
+    $query = new QueryBuilder($pdo);
+    $voluntario = $query->selectVoluntarioById($voluntarioId);
 
-        $query = null;
-        $pdo = null;
+    $acoesVoluntario = $query->selectParticipacoesVoluntario($voluntarioId);
 
-    } catch (PDOException $e) {
-        die($e->getMessage());
-    }
+    $query = null;
+    $pdo = null;
+
 
     require 'participacoes.view.php';
 
@@ -43,14 +41,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['voluntarioId'])) {
     // If it has not been submitted, skip the validation
     header('Location: index.php');
     exit();
-}
-
-function test_input($data)
-{
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
 }
 
 ?>

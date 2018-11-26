@@ -21,20 +21,22 @@ $nome = $apelido = $email1 = $email2 = $tipoContato =
 $consentePromocoes = false;
 $consenteCampanhas = false;
 
+require 'Helper.php';
+
 // If the REQUEST_METHOD is POST, then the form has been submitted - 
 // and it should be validated. 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nome = test_input($_POST["nome"]);
-    $apelido = test_input($_POST["apelido"]);
-    $dataNascimento = test_input($_POST["data-nascimento"]);
-    $tipoContato = test_input($_POST["tipo-contato"]);
-    $email1 = test_input($_POST["email1"]);
-    $email2 = test_input($_POST["email2"]);
-    $tlf = test_input($_POST["tlf"]);
-    $genero = test_input($_POST["genero"]);
-    $nif = test_input($_POST["nif"]);
-    $localidade = test_input($_POST["localidade"]);
-    $codigoPostal = test_input($_POST["codigo-postal"]);
+    $nome = Helper::test_input($_POST["nome"]);
+    $apelido = Helper::test_input($_POST["apelido"]);
+    $dataNascimento = Helper::test_input($_POST["data-nascimento"]);
+    $tipoContato = Helper::test_input($_POST["tipo-contato"]);
+    $email1 = Helper::test_input($_POST["email1"]);
+    $email2 = Helper::test_input($_POST["email2"]);
+    $tlf = Helper::test_input($_POST["tlf"]);
+    $genero = Helper::test_input($_POST["genero"]);
+    $nif = Helper::test_input($_POST["nif"]);
+    $localidade = Helper::test_input($_POST["localidade"]);
+    $codigoPostal = Helper::test_input($_POST["codigo-postal"]);
 
     if (isset($_POST['consente-promocoes'])) {
         $consentePromocoes = true;
@@ -112,14 +114,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //header('Location: registar.php');
     require ('registar.view.php');
     exit;
-}
-
-function test_input($data)
-{
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
 }
 
 // Function for basic field validation (present and neither empty nor only white space

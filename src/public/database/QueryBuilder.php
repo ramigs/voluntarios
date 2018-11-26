@@ -16,6 +16,15 @@ class QueryBuilder
         return $stmt->fetchAll(PDO::FETCH_CLASS, $intoClass);
     }
 
+    public function selectUserByUsername($username)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM user WHERE username = :username");
+        $stmt->bindParam(':username', $username);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'User');
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
     public function selectVoluntarioById($id)
     {
         $stmt = $this->pdo->prepare("SELECT * FROM voluntario WHERE id = :id");

@@ -126,6 +126,11 @@ gulp.task('build',
     ['php-build', 'css-build', 'php-clean', 'images-build', 'fpdffonts-build', 'browser-sync-prod-test'], function() {
 });
 
+/* gulp.task('build', 
+    ['php-build', 'css-build'], function() {
+}); */
+
+
 /* gulp.task('js-build', function() {
         return gulp.src(paths.tmpJS)
             .pipe(gulp.dest(paths.distJS));
@@ -159,7 +164,7 @@ gulp.task('php-clean', ['css-build'], function() {
             commentStart: "<!--", 
             commentEnd: "-->"}))
         .pipe(inject( js, { relative:true } ))
-        .pipe(htmlclean())
+        //.pipe(htmlclean())
         .pipe(gulp.dest(paths.dist + 'public/'));
 });
 

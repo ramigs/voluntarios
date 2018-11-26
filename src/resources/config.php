@@ -13,6 +13,11 @@ switch (basename($_SERVER["SCRIPT_NAME"])) {
         $CURRENT_PAGE = "Index";
         $PAGE_TITLE = "BA Setúbal - Listagem de Voluntários";
         break;
+     
+    case "login.php":
+        $CURRENT_PAGE = "Login";
+        $PAGE_TITLE = "BA Setúbal - Login";
+        break;    
     case "registar.php":
         $CURRENT_PAGE = "Registar";
         $PAGE_TITLE = "BA Setúbal - Registo de Voluntário";
