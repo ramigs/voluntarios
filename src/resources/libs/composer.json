@@ -1,0 +1,7 @@
+{
+    "name": "composer/voluntarios",
+    "type": "library",
+    "require": {
+        "phpmailer/phpmailer": "^6.0"
+    }
+}

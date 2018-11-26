@@ -27,7 +27,7 @@
                     </div>
                 </div>
             <?php endif; ?>
-            <?php if (isset($deletedVoluntarioId)) : ?>
+            <?php if (isset($deletedVoluntarioId) && $deletedVoluntarioId != '0') : ?>
                 <!-- Alerta Sucesso - Voluntário Apagado -->
                 <div class="alert alert-success" style="display:block;">
                     <div class="container-fluid">
@@ -41,13 +41,64 @@
                     </div>
                 </div>
             <?php endif; ?>
+            <?php if (isset($_GET['deleted']) && $_GET['deleted'] == 'error') : ?>
+                <!-- Alerta Erro - Erro ao Apagar Voluntário -->
+                <div class="alert alert-danger" style="display:block;">
+                    <div class="container-fluid">
+                        <div class="alert-icon">
+                            <i class="material-icons">error_outline</i>
+                        </div>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true"><i class="material-icons">clear</i></span>
+                        </button>
+                        <b>Erro Apagar:</b> Voluntário a apagar não existe na base de dados</strong>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <?php if (isset($_GET['emailSent']) && $_GET['emailSent'] == 'success') : ?>
+                <!-- Alerta Sucesso - Sucesso ao Apagar Voluntário -->
+                <div class="alert alert-success" style="display:block;">
+                    <div class="container-fluid">
+                        <div class="alert-icon">
+                            <i class="material-icons">check</i>
+                        </div>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true"><i class="material-icons">clear</i></span>
+                        </button>
+                        <b>Email Sucesso:</b> Email Declaração de Remoção de Dados enviado</strong>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <?php if (isset($_GET['emailSent']) && $_GET['emailSent'] == 'skip') : ?>
+                <!-- Alerta Aviso - Configurações de email não encontradas: email não enviado! -->
+                <div class="alert alert-warning" style="display:block;">
+                    <div class="container-fluid">
+                        <div class="alert-icon">
+                            <i class="material-icons">warning</i>
+                        </div>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true"><i class="material-icons">clear</i></span>
+                        </button>
+                        <b>Erro Configurações de Email:</b> Email não enviado ao Voluntário
+                    </div>
+                </div>
+            <?php endif; ?>
+            <?php if (isset($_GET['emailSent']) && $_GET['emailSent'] == 'error') : ?>
+                <!-- Alerta Erro - Erro ao Enviar Email ao Voluntário -->
+                <div class="alert alert-warning" style="display:block;">
+                    <div class="container-fluid">
+                        <div class="alert-icon">
+                            <i class="material-icons">error_outline</i>
+                        </div>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true"><i class="material-icons">clear</i></span>
+                        </button>
+                        <b>Erro Envio de Email:</b> Ocorreu um erro no Envio de Email para o Voluntário</strong>
+                    </div>
+                </div>
+            <?php endif; ?>
             <h3 class="text-center card-title">Voluntários Registados</h3>
             <p class="text-right"><strong><?= count($voluntarios); ?></strong> voluntários registados à data de <?= date("d/m/Y"); ?></p>
-            <!-- <?php echo $CURRENT_PAGE ?>
-            <?php echo $_SERVER["SCRIPT_NAME"]; ?>
-            <?php echo $_SERVER["PHP_SELF"]; ?>
-            <?php echo $_SERVER["DOCUMENT_ROOT"]; ?>
-            <?php echo realpath(dirname(__FILE__)); ?> -->
             <table class="table">
                 <thead class="table-dark">
                     <tr>
@@ -95,11 +146,13 @@
                             </button>
                     </div>
                     <div class="modal-body">
-                        Tem a certeza que deseja apagar este voluntário?
+                        <p>Tem a certeza que deseja apagar este voluntário?</p>
+                        <small>Será enviado email de confirmação para o voluntário.</small>
                     </div>
                     <div class="modal-footer">
                         <form action="deleteVoluntario.php" method="post">
                             <input type="hidden" name="voluntarioId" value="<?= htmlspecialchars($voluntario->id); ?>">
+                            <input type="hidden" name="voluntarioEmail" value="<?= htmlspecialchars($voluntario->email1); ?>">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                             <button type="submit" name="submit-delete" class="btn btn-primary">Apagar</button>
                         </form>
