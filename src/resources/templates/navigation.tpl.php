@@ -1,6 +1,6 @@
 <nav class="navbar fixed-top navbar-expand-lg bg-primary">
     <div class="container">
-        <a class="navbar-brand" href="#">LOGO</a>
+        <a class="navbar-brand" href="index.php"></a>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item <?php if ($CURRENT_PAGE == "Index") {?>active<?php }?>">
