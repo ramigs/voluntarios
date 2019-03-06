@@ -1,4 +1,4 @@
-# Sass Starter Pack
+# Registo de Voluntários
 
 A light package for compiling Sass and running a dev server
 
