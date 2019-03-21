@@ -13,3 +13,4 @@ db/scripts/QA_create_schema_voluntarios.sql
 .*
 # Allow
 !.gitignore
+!.gitattributes
