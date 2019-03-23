@@ -20,7 +20,7 @@ $ npm install
 ```
 
 I use browser-sync configured with a proxy to wrap my local MAMP.
-If your configuration differs, edit the gulp's proxy entry.
+If your configuration differs, edit gulp's proxy entry.
 Run gulp's 'dev' task to build and run a browser-sync instance to serve the app.
 
 ```sh
