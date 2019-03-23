@@ -9,9 +9,9 @@ Main features:
 
 ### Development
 
-Edit src/resources/config.php with your database info.
+Edit `src/resources/config.php` with your database info.
 
-Run the MySQL database script db/scripts/DEV_create_schema_voluntarios to create the schema and all the necessary tables.
+Run the MySQL database script `db/scripts/DEV_create_schema_voluntarios` to create the schema and all the necessary tables.
 
 Install the dependencies (gulp, gulp-sass, browser-sync)
 
@@ -29,7 +29,7 @@ $ gulp dev
 
 ### Production
 
-Create dist folder to deploy in production
+Create a `dist` folder ready to be deployed in production
 
 ```sh
 $ gulp build
