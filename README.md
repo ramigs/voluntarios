@@ -1,6 +1,12 @@
-# Registo de Voluntários
+# Volunteer Registration and Management
 
-A light package for compiling Sass and running a dev server
+PHP app developed for Banco Alimentar de Setúbal
+
+Main features:
+
+- CRUD Volunteer Forms
+- Generate proof of participation PDF documents
+
 
 ### Version
 1.0.0
