@@ -4,17 +4,14 @@ PHP app developed for Banco Alimentar de Setúbal
 
 Main features:
 
-- CRUD Volunteer Forms
-- Generate proof of participation PDF documents
+- Registering and displaying volunteers
+- Generating proof of participation PDF documents
 
+### Development
 
-### Version
-1.0.0
+Edit src/resources/config.php with your database info.
 
-## Usage
-
-
-### Installation
+Run the MySQL database script db/scripts/DEV_create_schema_voluntarios to create the schema and all the necessary tables.
 
 Install the dependencies (gulp, gulp-sass, browser-sync)
 
@@ -22,10 +19,18 @@ Install the dependencies (gulp, gulp-sass, browser-sync)
 $ npm install
 ```
 
-### Run
-
-This will watch your sass files, compile them and run your dev server at http://localhost:3000
+I use browser-sync configured with a proxy to wrap my local MAMP.
+If your configuration differs, edit the gulp file proxy entry.
+Run gulp 'dev' task to build and run a browser-sync instance to serve the app.
 
 ```sh
-$ npm start
+$ gulp dev
+```
+
+### Production
+
+Create dist folder to deploy in production
+
+```sh
+$ gulp build
 ```

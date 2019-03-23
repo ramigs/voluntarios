@@ -1,13 +1,13 @@
 {
   "name": "voluntarios",
   "version": "1.0.0",
-  "description": "Registo de Voluntários - Banco Alimentar de Setúbal",
+  "description": "Volunteer Registration and Management - Banco Alimentar de Setúbal",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Rami Shashati",
-  "license": "ISC",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/ramigs/voluntarios"
